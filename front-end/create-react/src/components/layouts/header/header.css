@@ -1,0 +1,14 @@
+.anticon{
+    margin-left: 172px;
+
+}
+.ant-drawer .ant-drawer-body{
+    padding: 0;
+    padding-left: 12px;
+
+   
+}
+
+.ant-drawer .ant-drawer-header {
+    border-bottom: none;
+}

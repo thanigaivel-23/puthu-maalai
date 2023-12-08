@@ -1,0 +1,378 @@
+[
+
+    {
+        "name": "PURE WHITE COTTON MAXI DRESS",
+        "description": "Fashion expert believes that when you are confused about what to wear, pick a white cotton dress.",
+        "price": 999,
+        "discount" : 20,
+        "colors" : ["black", "white", "red"],
+        "size" : ["s", "m", "l"],
+        "ratings": 4.2,
+        "brand": "Urbano Fashion",
+        "type": "Dress",
+        "fabric": "Cotton",
+        "style": "Frock",
+        "sizeAndFit": "Slim Fit",
+
+        "images": [
+            {
+                "image": "/img/products/dress1.jpg"
+            },
+            {
+                "image": "/img/products/dress2.jpg"
+            },
+            {
+                "image": "/img/products/dress4.jpg"
+            },
+            {
+                "image": "/img/products/dress5.jpg"
+            }
+        ],
+        "category": "Women",
+        "seller": "Amazon",
+        "stock": 5,
+        "numOfReviews": 219,
+        "reviews": []
+    },
+    {
+        "name": "MEN GREY MID WASH SLIM TAPERED JEANS",
+        "description": "Redefine your off-duty look in these Grey Mid wash jeans from Peter England Jeans by Peter England and look stylish wherever you go.",
+        "price": 2499,
+        "discount" : 30,
+        "colors" : ["gray"],
+        "size" : ["s", "m", "l", "xl"],
+        "ratings": 4.1,
+        "brand": "Peter England",
+        "type": "Jeans",
+        "fabric": "98% Cotton and 2% Spandex",
+        "style": "Jeans",
+        "sizeAndFit": "Slim Tapered",
+
+        "images": [
+            {
+                "image": "/img/products/pant/gray1.avif"
+            },
+            {
+                "image": "/img/products/pant/gray2.avif"
+            },
+            {
+                "image": "/img/products/pant/gray3.avif"
+            },
+            {
+                "image": "/img/products/pant/gray4.avif"
+            }
+        ],
+        "category": "Men",
+        "seller": "Amazon",
+        "stock": 15,
+        "numOfReviews": 29,
+        "reviews": []
+    },
+    {
+        "name": "MEN BLACK MID WASH SLIM TAPERED JEANS",
+        "description": "Redefine your off-duty look in these Grey Mid wash jeans from Peter England Jeans by Peter England and look stylish wherever you go.",
+        "price": 2499,
+        "discount" : 30,
+        "colors" : ["black"],
+        "size" : ["s", "m", "l", "xl"],
+        "ratings": 4.1,
+        "brand": "Peter England",
+        "type": "Jeans",
+        "fabric": "98% Cotton and 2% Spandex",
+        "style": "Jeans",
+        "sizeAndFit": "Slim Tapered",
+
+        "images": [
+            {
+                "image": "/img/products/pant/black1.avif"
+            },
+            {
+                "image": "/img/products/pant/black2.avif"
+            },
+            {
+                "image": "/img/products/pant/black3.avif"
+            },
+            {
+                "image": "/img/products/pant/black4.avif"
+            }
+        ],
+        "category": "Men",
+        "seller": "Amazon",
+        "stock": 15,
+        "numOfReviews": 129,
+        "reviews": []
+    },
+    {
+        "name": "MEN BLACK SOLID SLIM FIT WEDDING TWO PIECE SUIT",
+        "description": "Exquisitely cut in a Slim Fit , this Black Solid two piece suit from Peter England Elite by Peter England is multi faceted in its appeal.",
+        "price": 6999,
+        "discount" : 25,
+        "colors" : ["black"],
+        "size" : ["L", "XL", "2xl"],
+        "ratings": 4.9,
+        "brand": "Urbano Fashion",
+        "type": "Suit",
+        "fabric": "65% Polyester, 33% Viscose and 2% Spandex",
+        "style": "Wedding",
+        "sizeAndFit": "Slim Fit",
+
+        "images": [
+            {
+                "image": "/img/products/suits/black1.avif"
+            },
+            {
+                "image": "/img/products/suits/black2.avif"
+            },
+            {
+                "image": "/img/products/suits/black3.avif"
+            },
+            {
+                "image": "/img/products/suits/black4.avif"
+            }
+        ],
+        "category": "Men",
+        "seller": "Amazon",
+        "stock": 25,
+        "numOfReviews": 99,
+        "reviews": []
+    },
+    {
+        "name": "BULLMER T-Shirt",
+        "description": "Loose Fit Graphic Print Round-Neck T-Shirt",
+        "price": 1499,
+        "discount" : 80,
+        "colors" : ["black", "white", "red"],
+        "size" : ["s", "m", "l","xl", "2xl" ],
+        "ratings": 4.2,
+        "brand": "Urbano Fashion",
+        "type": "t-shirt",
+        "fabric": "Cotton",
+        "style": "t-shirt",
+        "sizeAndFit": "Loose Fit",
+
+        "images": [
+            {
+                "image": "/img/products/Tshirt/black1.jpg"
+            },
+            {
+                "image": "/img/products/Tshirt/black2.jpg"
+            },
+            {
+                "image": "/img/products/Tshirt/black3.jpg"
+            },
+            {
+                "image": "/img/products/Tshirt/black4.jpg"
+            }
+        ],
+        "category": "Men",
+        "seller": "Ajio",
+        "stock": 5,
+        "numOfReviews": 219,
+        "reviews": []
+    },
+    {
+        "name": "PERFORMAX T-Shirt",
+        "description": "Men Active Lifestyle Jacket",
+        "price": 1499,
+        "discount" : 10,
+        "colors" : ["white"],
+        "size" : ["s", "m", "l" ],
+        "ratings": 4.2,
+        "brand": "Urbano Fashion",
+        "type": "Jacket",
+        "fabric": "Cotton",
+        "style": "Jacket",
+        "sizeAndFit": "Loose Fit",
+
+        "images": [
+            {
+                "image": "/img/products/Tshirt/white1.jpg"
+            },
+            {
+                "image": "/img/products/Tshirt/white2.jpg"
+            },
+            {
+                "image": "/img/products/Tshirt/white3.jpg"
+            },
+            {
+                "image": "/img/products/Tshirt/white4.jpg"
+            }
+        ],
+        "category": "Men",
+        "seller": "Ajio",
+        "stock": 15,
+        "numOfReviews": 219,
+        "reviews": []
+    },
+    {
+        "name": "FORT COLLINS T-Shirt",
+        "description": "Men Lightweight Regular Fit T-Shirt",
+        "price": 2699,
+        "discount" : 54,
+        "colors" : [ "red"],
+        "size" : ["s", "m", "l","xl" ],
+        "ratings": 4.2,
+        "brand": "Urbano Fashion",
+        "type": "t-shirt",
+        "fabric": "Cotton",
+        "style": "t-shirt",
+        "sizeAndFit": "Regular Fit",
+
+        "images": [
+            {
+                "image": "/img/products/Tshirt/red1.jpg"
+            },
+            {
+                "image": "/img/products/Tshirt/red2.jpg"
+            },
+            {
+                "image": "/img/products/Tshirt/red3.jpg"
+            },
+            {
+                "image": "/img/products/Tshirt/red4.jpg"
+            }
+        ],
+        "category": "Men",
+        "seller": "Ajio",
+        "stock": 5,
+        "numOfReviews": 219,
+        "reviews": []
+    },
+    {
+        "name": "BVLGARI Perfume",
+        "description": "Man In Black Eau De Parfum",
+        "price": 8500,
+        "discount" : 20,
+        "colors" : [],
+        "size" : [],
+        "ratings": 4.2,
+        "brand": "BVLGARI",
+        "type": "",
+        "fabric": "",
+        "style": "",
+        "sizeAndFit": "",
+
+        "images": [
+            {
+                "image": "/img/products/perfume/perfume1.jpg"
+            },
+            {
+                "image": "/img/products/perfume/perfume2.jpg"
+            },
+            {
+                "image": "/img/products/perfume/perfume3.jpg"
+            },
+            {
+                "image": "/img/products/perfume/perfume4.jpg"
+            }
+        ],
+        "category": "Men",
+        "seller": "Amazon",
+        "stock": 59,
+        "numOfReviews": 219,
+        "reviews": []
+    }, 
+    {
+        "name": "HIGHLANDER",
+        "description": "Men Sea Green & White Slim Fit Checked Casual Shirt",
+        "price": 1999,
+        "discount" : 50,
+        "colors" : ["black"],
+        "size" : ["s", "m", "l"],
+        "ratings": 4.2,
+        "brand": "HIGHLANDER",
+        "type": "Shirt",
+        "fabric": "Cotton",
+        "style": "Casual",
+        "sizeAndFit": "Slim Fit",
+
+        "images": [
+            {
+                "image": "/img/products/shirt/black1.avif"
+            },
+            {
+                "image": "/img/products/shirt/black2.avif"
+            },
+            {
+                "image": "/img/products/shirt/black3.avif"
+            },
+            {
+                "image": "/img/products/shirt/black4.avif"
+            }
+        ],
+        "category": "Women",
+        "seller": "Amazon",
+        "stock": 5,
+        "numOfReviews": 219,
+        "reviews": []
+    },
+    {
+        "name": "DOCTOR EXTRA SOFT shoe",
+        "description": "Women Perforations Lightweight Slip-On Sneakers",
+        "price": 1999,
+        "discount" : 40,
+        "colors" : ["blue"],
+        "size" : ["9", "10"],
+        "ratings": 2.7,
+        "brand": "HIGHLANDER",
+        "type": "Canvas",
+        "fabric": "Cotton",
+        "style": "Regular",
+        "sizeAndFit": "",
+
+        "images": [
+            {
+                "image": "/img/products/shoe/blue1.jpg"
+            },
+            {
+                "image": "/img/products/shoe/blue2.jpg"
+            },
+            {
+                "image": "/img/products/shoe/blue3.jpg"
+            },
+            {
+                "image": "/img/products/shoe/blue4.jpg"
+            }
+        ],
+        "category": "Women",
+        "seller": "Amazon",
+        "stock": 5,
+        "numOfReviews": 219,
+        "reviews": []
+    },
+    {
+        "name": "Roadster shoe",
+        "description": "Men Woven Design Sneakers",
+        "price": 1999,
+        "discount" : 45,
+        "colors" : ["red"],
+        "size" : ["10", "11", "12"],
+        "ratings": 3.2,
+        "brand": "HIGHLANDER",
+        "type": "Sneakers",
+        "fabric": "Cotton",
+        "style": "Casual",
+        "sizeAndFit": "",
+
+        "images": [
+            {
+                "image": "/img/products/shoe/red1.jpg"
+            },
+            {
+                "image": "/img/products/shoe/red2.jpg"
+            },
+            {
+                "image": "/img/products/shoe/red3.jpg"
+            },
+            {
+                "image": "/img/products/shoe/red4.jpg"
+            }
+        ],
+        "category": "Men",
+        "seller": "Amazon",
+        "stock": 5,
+        "numOfReviews": 219,
+        "reviews": []
+    }
+   
+]

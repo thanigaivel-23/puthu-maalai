@@ -1,0 +1,16 @@
+.slick-slider{
+    display: flex;
+    justify-content: center;
+}
+.slick-track{
+   margin-left: -10px;
+}
+
+.slick-list{
+    width: 90%;
+   
+}
+.slick-slide div{
+    margin: 0 1rem;
+    
+}
