@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { productsFail, productsRequest, productsSuccess } from '../slices/productsSlice'
+import { productsFail, productsRequest, productsSuccess } from '../../slices/productsSlice'
 
 export const getProducts = (keyword, price, categoryFilter, currentPage) =>  async(dispatch) =>{
     try {

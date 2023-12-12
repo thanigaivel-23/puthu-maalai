@@ -6,7 +6,7 @@ import ShowSearchProduct from './content/ShowSearchProduct'
 
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from '../../actions/productsActions';
+import { getProducts } from '../../actions/productsActions/productsActions';
 import { useParams } from 'react-router-dom';
 import SearchNextPage from './content/SearchNextPage';
 
@@ -49,13 +49,12 @@ const SearchPage = () => {
   let priceMin = localStorage.getItem('priceMin');
   let priceMax = localStorage.getItem('priceMax');
   
+    
+
   // //if in page 2 and searching new keyword
-  if((currentPage >1) && ((priceMin != price[0]) ||  (priceMax != price[1]))){
+  if((currentPage >1) && ((Number(priceMin) !== price[0]) ||  (Number(priceMax) !== price[1]))){
     setCurrentPage(1)
   }
-
-
-  
 
 
   // For category filter------------------------------------------------------------------> 
@@ -79,7 +78,7 @@ const SearchPage = () => {
       return toast.error(error,{position: toast.POSITION.TOP_CENTER})
     }
 
-    dispatch(getProducts(keyword, price, categoryFilter, currentPage))
+    dispatch(getProducts(keyword, priceChanged, categoryFilter, currentPage))
     window.scrollTo({top: 0});
     
 

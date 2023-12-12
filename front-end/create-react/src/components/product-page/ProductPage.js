@@ -4,7 +4,7 @@ import ProductSilder from "./main/ProductSilder";
 import PSilderHeading from "./main/PSilderHeading";
 import ProductContent from "./main/ProductContent";
 import { useDispatch } from "react-redux";
-import { getSingleProduct } from "../../actions/singleProductAction";
+import { getSingleProduct } from "../../actions/productsActions/singleProductAction";
 import { useParams } from "react-router-dom";
 
 const ProductPage = () => {

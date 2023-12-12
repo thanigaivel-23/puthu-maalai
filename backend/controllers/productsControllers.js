@@ -6,16 +6,12 @@ const APIFeatures = require("../utils/apiFeatures");
 /// GET get products - /api/products
 const getProducts = expressAsyncHandler(async (req, res,next) => {
 
-  console.log('ssd');
   let outOfStock = await productDB.find().where("stock").equals(0)
   let inStock = await productDB.find({stock: {$gt:0}})
-
   
   const resPerPage = 4;
 
-  let buildQuery = () =>{
-
-    
+  let buildQuery = () =>{  
     return new APIFeatures(productDB.find(), req.query).search().filter()
   }
   

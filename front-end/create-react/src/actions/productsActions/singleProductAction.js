@@ -1,4 +1,4 @@
-import{singleProductFail, singleProductRequest, singleProductSuccess} from '../slices/singleProductSlice'
+import{singleProductFail, singleProductRequest, singleProductSuccess} from '../../slices/singleProductSlice'
 import axios from 'axios'
 
 export const getSingleProduct = (id)=>{ 

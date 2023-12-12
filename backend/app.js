@@ -19,12 +19,12 @@ app.use("/api", products);
 app.use("/api", auth);
 app.use("/api", order);
 
-if(process.env.NODE_ENV == "production"){
-    app.use(express.static(path.join(__dirname,'../front-end/create-react/build')))
-    app.get('*',(req,res)=>{
-        res.sendFile(path.resolve(__dirname,'../front-end/create-react/build/index.html'))
-    })
-}
+// if(process.env.NODE_ENV == "production"){
+//     app.use(express.static(path.join(__dirname,'../front-end/create-react/build')))
+//     app.get('*',(req,res)=>{
+//         res.sendFile(path.resolve(__dirname,'../front-end/create-react/build/index.html'))
+//     })
+// }
 
 app.use(require('./middleware/error'));
 

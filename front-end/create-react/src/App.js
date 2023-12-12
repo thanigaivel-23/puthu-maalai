@@ -29,6 +29,8 @@ import OfferPage from "./components/offer-page/OfferPage";
 import AccountPage from "./components/account-page/AccountPage";
 import ScrollToTop from "./components/layouts/ScrollToTop";
 import SearchPage from "./components/search-page/SearchPage";
+import Login from "./components/User/Login";
+import Register from "./components/User/Register";
 
 
 
@@ -41,9 +43,10 @@ function App() {
 
   return (
     <BrowserRouter>
+
       <ScrollToTop />
-    
       <div>
+
         <HelmetProvider>
             <Header />
             <ToastContainer theme="dark"/>
@@ -63,6 +66,8 @@ function App() {
               <Route path="/gifts" element={<GiftsPage />} />
               <Route path="/offer" element={<OfferPage />} />
               <Route path="/account" element={<AccountPage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
           
             </Routes>
@@ -74,8 +79,10 @@ function App() {
             {path !== "/login" && path !== "/register" && <Bottom />}
             {path !== "/login" && path !== "/register" && <CopyRight />} */}
         </HelmetProvider>
+        
       </div>
-  </BrowserRouter>
+
+    </BrowserRouter>
   );
 }
 

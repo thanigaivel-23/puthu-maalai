@@ -5,7 +5,7 @@ import ShopShowProduct from "./ShopShowProduct";
 import NextPage from "./NextPage";
 
 import { useDispatch } from "react-redux";
-import { getProducts } from "../../../actions/productsActions";
+import { getProducts } from "../../../actions/productsActions/productsActions";
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -13,7 +13,8 @@ import { toast } from 'react-toastify';
 const ShopProducts = () => {
   
   const dispatch = useDispatch();
-  const {products, loading, error, productsCount, productPerPage, totalSearchProducts} = useSelector((state)=>state.productsState)
+  const {products, loading, error, productsCount, productPerPage
+  } = useSelector((state)=>state.productsState)
 
 //For next page--------------------------------------------------------------------------------------------------------------->
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,7 +41,8 @@ const ShopProducts = () => {
   let priceMax = localStorage.getItem('priceMax');
   
   // //if in page 2 and searching new keyword
-  if((currentPage >1) && ((priceMin != price[0]) ||  (priceMax != price[1]))){
+  if((currentPage >1) && ((Number(priceMin) !== price[0]) ||  (Number(priceMax) !== price[1]))){
+  
     setCurrentPage(1)
   }
 
@@ -66,7 +68,7 @@ const ShopProducts = () => {
       return toast.error(error,{position: toast.POSITION.TOP_CENTER})
     }
     
-    dispatch(getProducts(null, price, categoryFilter, currentPage))
+    dispatch(getProducts(null, priceChanged, categoryFilter, currentPage))
     window.scrollTo({top: 0});
   },[error,dispatch, priceChanged, currentPage, categoryFilter])
 

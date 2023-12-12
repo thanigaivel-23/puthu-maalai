@@ -5,9 +5,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 import "../main/productPage.css";
 
-
-import { AiOutlineHeart } from "react-icons/ai";
-
 import ProductN from "./ProductN";
 import ProductP from "./ProductP";
 
