@@ -6,13 +6,19 @@ const sendmail = require("../utils/email");
 const crypto = require('crypto')
 
 //Register user - /api/register
-exports.registerUser = expressAsyncHandler(async(req,res)=>{
+exports.registerUser = expressAsyncHandler(async (req, res) => {
 
-    const {name, email, password} = req.body;
+    const { name, email, password } = req.body;
 
     let avatar;
-    if(req.file){
-        avatar = `${process.env.BACKEND_URL}/uploads/user/${req.file.originalname}`
+
+    let BASE_URL = process.env.BACKEND_URL;
+    if (process.env.NODE_ENV === 'production') {
+        BASE_URL = `${req.protocol}://${req.get('host')}`
+    }
+
+    if (req.file) {
+        avatar = `${BASE_URL}/uploads/user/${req.file.originalname}`
     }
 
     const user = await userDB.create({
@@ -20,27 +26,27 @@ exports.registerUser = expressAsyncHandler(async(req,res)=>{
     });
 
     sendToken(user, 201, res)
-    
+
 })
 
 //Login user - /api/login
-exports.loginUser = expressAsyncHandler(async(req,res, next)=>{
+exports.loginUser = expressAsyncHandler(async (req, res, next) => {
 
-    const {email, password} = req.body;
+    const { email, password } = req.body;
 
-    if(!email || !password) {
-        return next(new ErrorHandler('please enter email & password',400))
+    if (!email || !password) {
+        return next(new ErrorHandler('please enter email & password', 400))
     }
 
     //finding the user from database
-    const user = await userDB.findOne({email}).select('+password')
+    const user = await userDB.findOne({ email }).select('+password')
 
-    if(!user){
-        return next(new ErrorHandler('Invalid email or password',401))
+    if (!user) {
+        return next(new ErrorHandler('Invalid email or password', 401))
     }
 
-    if(! await user.isValidPassword(password)){
-        return next(new ErrorHandler('Invalid email or password',401))
+    if (! await user.isValidPassword(password)) {
+        return next(new ErrorHandler('Invalid email or password', 401))
     }
 
     sendToken(user, 201, res)
@@ -48,38 +54,42 @@ exports.loginUser = expressAsyncHandler(async(req,res, next)=>{
 })
 
 //Logout user - /api/logout
-exports.logoutUser = (req,res,next) =>{
+exports.logoutUser = (req, res, next) => {
     res.cookie('token', null, {
         expires: new Date(Date.now()),
         httpOnly: true
     })
-    .status(200)
-    .json({
-        success: true,
-        message: 'logged out'
-    })
+        .status(200)
+        .json({
+            success: true,
+            message: 'logged out'
+        })
 }
 
 //Forgot Password - /api/fogotpassword
-exports.forgotPassword = expressAsyncHandler(async(req,res,next)=>{
+exports.forgotPassword = expressAsyncHandler(async (req, res, next) => {
 
-    const user = await userDB.findOne({email: req.body.email})
+    const user = await userDB.findOne({ email: req.body.email })
 
-    if(!user){
-        return next(new ErrorHandler('user not found with this email id',404))
+    if (!user) {
+        return next(new ErrorHandler('user not found with this email id', 404))
     }
 
     const resetToken = user.getResetPasswordToken();
-    await user.save({validateBeforeSave: false})
+    await user.save({ validateBeforeSave: false })
 
+    let BASE_URL = process.env.FRONTEND_URL;
+    if (process.env.NODE_ENV === 'production') {
+        BASE_URL = `${req.protocol}://${req.get('host')}`
+    }
     //create reset url
-    const resetUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`
+    const resetUrl = `${BASE_URL}/password/reset/${resetToken}`
 
     const message = `Your password reset is as follows \n\n
     ${resetUrl} \n\n If you have not requested this email, then ignore it`
 
     try {
-        
+
         sendmail({
             email: user.email,
             subject: 'Pudhumaalai Password Recovery',
@@ -90,42 +100,43 @@ exports.forgotPassword = expressAsyncHandler(async(req,res,next)=>{
             success: true,
             message: `Email sent to ${user.email}`
         })
-        
-    } 
+
+    }
     catch (error) {
         user.resetPasswordToken = undefined;
         user.resetPasswordTokenExpire = undefined;
-        await user.save({validateBeforeSave: false});
-        return next(new ErrorHandler(error.message),500 )
+        await user.save({ validateBeforeSave: false });
+        return next(new ErrorHandler(error.message), 500)
     }
 
 
 })
 
 //Reset password - /api/password/reset/:token
-exports.resetPassword = expressAsyncHandler(async(req,res,next)=>{
+exports.resetPassword = expressAsyncHandler(async (req, res, next) => {
     const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex')
     const user = await userDB.findOne({
         resetPasswordToken,
         resetPasswordTokenExpire: {
-            $gt : Date.now()
-        }})
+            $gt: Date.now()
+        }
+    })
 
-    if(!user){
+    if (!user) {
         return next(new ErrorHandler('Password reset token is invalid or expired'))
     }
-    if(!req.body.password || !req.body.confirmPassword){
+    if (!req.body.password || !req.body.confirmPassword) {
         return next(new ErrorHandler('Password cannot be empty'))
     }
 
-    if(req.body.password !== req.body.confirmPassword){
+    if (req.body.password !== req.body.confirmPassword) {
         return next(new ErrorHandler('Password does not match'))
     }
 
     user.password = req.body.password
     user.resetPasswordToken = undefined
     user.resetPasswordTokenExpire = undefined
-    await user.save({validateBeforeSave: false})
+    await user.save({ validateBeforeSave: false })
 
     sendToken(user, 201, res)
 
@@ -133,7 +144,7 @@ exports.resetPassword = expressAsyncHandler(async(req,res,next)=>{
 })
 
 //Get user profile
-exports.getUserProfile = expressAsyncHandler(async(req,res,next)=>{
+exports.getUserProfile = expressAsyncHandler(async (req, res, next) => {
     const user = await userDB.findById(req.user.id)
     res.status(200).json({
         success: true,
@@ -143,16 +154,16 @@ exports.getUserProfile = expressAsyncHandler(async(req,res,next)=>{
 
 
 //Change Password - /api//password/change
-exports.changePassword = expressAsyncHandler(async(req,res,next)=>{
+exports.changePassword = expressAsyncHandler(async (req, res, next) => {
     const user = await userDB.findById(req.user.id).select('+password')
 
-    if(!req.body.oldPassword || !req.body.newPassword){
+    if (!req.body.oldPassword || !req.body.newPassword) {
         return next(new ErrorHandler('Password cannot be empty'))
-    }    
+    }
 
     //check old password
-    if(!await user.isValidPassword(req.body.oldPassword)){
-        return next(new ErrorHandler('old password is incorrect'),401)
+    if (!await user.isValidPassword(req.body.oldPassword)) {
+        return next(new ErrorHandler('old password is incorrect'), 401)
     }
 
     //assigning new password
@@ -165,7 +176,7 @@ exports.changePassword = expressAsyncHandler(async(req,res,next)=>{
 })
 
 //Update Profile - 
-exports.updateProfile = expressAsyncHandler(async(req,res,next)=>{
+exports.updateProfile = expressAsyncHandler(async (req, res, next) => {
 
     let newUserData = {
         name: req.body.name,
@@ -173,9 +184,15 @@ exports.updateProfile = expressAsyncHandler(async(req,res,next)=>{
     }
 
     let avatar;
-    if(req.file){
-        avatar = `${process.env.BACKEND_URL}/uploads/user/${req.file.originalname}`
-        newUserData = {...newUserData, avatar}
+
+    let BASE_URL = process.env.BACKEND_URL;
+    if (process.env.NODE_ENV === 'production') {
+        BASE_URL = `${req.protocol}://${req.get('host')}`
+    }
+
+    if (req.file) {
+        avatar = `${BASE_URL}/uploads/user/${req.file.originalname}`
+        newUserData = { ...newUserData, avatar }
     }
 
     const user = await userDB.findByIdAndUpdate(req.user.id, newUserData, {
@@ -190,7 +207,7 @@ exports.updateProfile = expressAsyncHandler(async(req,res,next)=>{
 })
 
 //Admin: Get All User api/admin/users
-exports.getAllUser = expressAsyncHandler(async(req,res,next)=>{
+exports.getAllUser = expressAsyncHandler(async (req, res, next) => {
     const user = await userDB.find();
     res.status(200).json({
         success: true,
@@ -201,13 +218,13 @@ exports.getAllUser = expressAsyncHandler(async(req,res,next)=>{
 //Admin: Get Specific User - api/admin/user/:id
 exports.getUser = expressAsyncHandler(async (req, res, next) => {
     const user = await userDB.findById(req.params.id);
-    if(!user) {
+    if (!user) {
         return next(new ErrorHandler(`User not found with this id ${req.params.id}`))
     }
     res.status(200).json({
         success: true,
         user
-   })
+    })
 });
 
 //Admin: Update User - api/admin/user/:id
@@ -231,9 +248,9 @@ exports.updateUser = expressAsyncHandler(async (req, res, next) => {
 
 //Admin: Delete User - api/admin/user/:id
 exports.deleteUser = expressAsyncHandler(async (req, res, next) => {
-    
+
     const user = await userDB.findByIdAndDelete(req.params.id);
-    if(!user) {
+    if (!user) {
         return next(new ErrorHandler(`User not found with this id ${req.params.id}`))
     }
     res.status(200).json({
