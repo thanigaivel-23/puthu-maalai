@@ -31,11 +31,21 @@ import ScrollToTop from "./components/layouts/ScrollToTop";
 import SearchPage from "./components/search-page/SearchPage";
 import Login from "./components/User/Login";
 import Register from "./components/User/Register";
+import store from './strore'
+import { useEffect } from "react";
+import { loadUser } from "./actions/userActions/userActions";
+import ProtectedRoute from "./components/Route/ProtectedRoute";
+import UpdateProfile from "./components/User/UpdateProfile";
+import ForgotPassword from "./components/User/ForgotPassword";
+import ResetPassword from "./components/User/ResetPassword";
 
 
 
 function App() {
 
+    useEffect(()=>{
+      store.dispatch(loadUser)
+    })
   // let path = window.location.pathname;
 
   
@@ -65,9 +75,13 @@ function App() {
               <Route path="/accessories" element={<AccessoriesPage />} />
               <Route path="/gifts" element={<GiftsPage />} />
               <Route path="/offer" element={<OfferPage />} />
-              <Route path="/account" element={<AccountPage />} />
+              <Route path="/account" element={ <ProtectedRoute> <AccountPage /> </ProtectedRoute>} />
+              <Route path="/update" element={ <ProtectedRoute> <UpdateProfile /> </ProtectedRoute>} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/password/forgot" element={<ForgotPassword />} />
+              <Route path="/password/reset/:token" element={<ResetPassword />} />
+
 
           
             </Routes>

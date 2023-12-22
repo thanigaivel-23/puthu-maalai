@@ -2,11 +2,15 @@ import React from "react";
 import AccountPic from "./main/AccountPic";
 import AccountDetails from "./main/AccountDetails";
 import AccountLogout from "./main/AccountLogout";
+import { useSelector } from "react-redux";
 
-const AccountPage = () => {
+const AccountPage = () => { 
+
+  const {user} = useSelector(state => state.authState)
+
   return (
     <>
-      <AccountPic />
+      <AccountPic user={user} />
       <AccountDetails />
       <AccountLogout />
     </>

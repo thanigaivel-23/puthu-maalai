@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {clearAuthError, login} from '../../actions/userActions/userActions'
 import {toast} from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
 
@@ -25,14 +25,15 @@ const Login = () => {
         }
 
         if(error){
-            toast.error(error, {
+            toast(error, {
                 position: toast.POSITION.TOP_CENTER,
+                type: 'error', 
                 onOpen: ()=>{
                     dispatch(clearAuthError)
                 }
             })
         }
-    },[error,isAuthenticate,dispatch])
+    },[error,isAuthenticate,dispatch, navigate])
 
 
 
@@ -67,7 +68,7 @@ const Login = () => {
                     />
                 </div>
 
-                <a href="#" className="float-right text-gray-500 text-sm"> Forgot Password?</a>
+                <Link to="/password/forgot" className="float-right text-gray-500 text-sm"> Forgot Password?</Link>
     
                 <button
                 id="login_button"
@@ -78,7 +79,7 @@ const Login = () => {
                 LOGIN
                 </button>
 
-                <a href="#" className="text-gray-500 text-sm ">New User?</a>
+                <Link to="/register" className="text-gray-500 text-sm ">New User?</Link>
             </form>
         </div>
     </Fragment>

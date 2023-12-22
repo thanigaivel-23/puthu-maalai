@@ -80,20 +80,19 @@
     display: flex;
 }
 
-/* .pagination li:first-child {
-    order: 2;
-}
-.pagination li:nth-child(2) {
-  order: 1;
-}
-
-.pagination li:last-child {
-  order: 3;
-} */
-
-
-
 /*shop filter  */
 .ant-drawer .ant-drawer-body {
   padding-left: 0 !important;
+}
+
+/* for cart empty logo */
+.ant-empty .ant-empty-image svg {
+  width: 200px;
+  height: 200px;
+  margin: auto;
+}
+.ant-empty .ant-empty-description {
+  color: rgba(0, 0, 0, 0.88);
+  margin-top: 100px;
+  font-weight: 700;
 }

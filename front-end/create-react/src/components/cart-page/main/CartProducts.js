@@ -52,6 +52,19 @@ const CartProducts = () => {
 
   return (
     <>
+      {/* heading */}
+      <div className="flex justify-center  mt-8 md:mt-16  mb-6 md:mb-10 ">
+        <div className="font-sans flex justify-between  items-center w-11/12">
+          <h3 className="font-bold  md:text-2xl md:ml-3">You may also like</h3>
+          <button
+            type="sumbit"
+            className="md:mr-6 text-rose-500 text-xs md:text-base font-bold px-2 md:px-4 py-1 rounded-lg text-center border-rose-500 border-2"
+          >
+            View All
+          </button>
+        </div>
+      </div>
+      
       <Slider className="xl:w-[98%] mb-10 md:mb-14 lg:mb-20" {...settings}>
         <div className="w-[25%] mt-10 flex justify-center flex-col relative border-2">
           <p className="bg-rose-500  text-white  font-medium py-1.5 w-fit px-3  rounded-sm absolute top-5 left-0  opacity-90 md:opacity-100  text-xs md:text-base">

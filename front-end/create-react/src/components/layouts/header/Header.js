@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import {Link} from 'react-router-dom'
 import "./header.css";
 
@@ -18,8 +18,12 @@ import Category from "./Category";
 import Offer from "./Offer";
 import SearchBar from "./SearchBar";
 import ResSearchBar from "./ResSearchBar";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+
+  const {isAuthenticate} = useSelector(state => state.authState)
+  const {items: cartItems} = useSelector(state => state.cartState)
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -62,25 +66,44 @@ const Header = () => {
 
                 <div
                   id="account"
-                  className="flex items-center gap-x-3 px-3 md:gap-x-10 md:pr-7 "
+                  className="flex items-center gap-x-7 px-3 md:gap-x-10 md:pr-7 "
                 >
-                  <div id="cart">
-                    <Link to="/cart">
-                      <MdOutlineShoppingBag className="text-xl" />
-                    </Link>
-                  </div>
-                  <Link
-                    to="/account"
-                    id="profile"
-                    className="flex items-center gap-x-2"
-                  >
-                    <RiAccountCircleLine className="text-xl" />
-                    <p className="hidden lg:block">My Account</p>
-                  </Link>
-                  <div id="wishlist" className="flex items-center  gap-x-2">
-                    <FaRegHeart className="text-rose-500 text-xl" />
-                    <p className="hidden lg:block">Wishlist</p>
-                  </div>
+                   {isAuthenticate ?
+
+                      <Fragment>
+                        <Link to="/cart" className="flex relative">
+                          <MdOutlineShoppingBag className="text-2xl" />
+                          {cartItems.length !== 0 &&
+                           <p className="absolute bottom-3 left-3 bg-rose-500 text-white rounded-full w-5 h-5 font-bold flex justify-center items-center text-xs">{cartItems.length}</p>}
+                          
+                        </Link>
+
+                        <Link to="/account" id="profile"  className="flex items-center gap-x-2">
+                          <RiAccountCircleLine className="text-2xl" />
+                          <p className="hidden lg:block">My Account</p>
+                        </Link>
+
+                        <Link id="wishlist" className="flex items-center  gap-x-2">
+                          <FaRegHeart className="text-rose-500 text-2xl" />
+                          <p className="hidden lg:block">Wishlist</p>
+                        </Link>
+                      </Fragment>
+                      
+                      :
+                      <Fragment>
+                        <Link to="/login"  className="flex items-center gap-x-2">
+                          <p className="font-semibold  rounded-lg bg-rose-500 text-white  px-3 py-1">Login</p>
+                        </Link> 
+
+                        <Link to="/register"  className="flex items-center gap-x-2">
+                          <p className="font-semibold  rounded-lg text-rose-500 border-2 border-rose-500 px-3 py-1">Register</p>
+                        </Link>
+                     </Fragment>
+                   }
+                  
+
+
+                 
                 </div>
               </div>
             </header>

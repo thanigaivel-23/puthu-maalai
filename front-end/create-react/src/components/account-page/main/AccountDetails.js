@@ -118,8 +118,8 @@ const AccountDetails = () => {
       </a>
 
       {/* profile details */}
-      <a
-        href="/"
+      <Link
+        to="/update"
         className="flex justify-between items-center px-3 md:px-20 py-3 md:py-5 border-b-2"
       >
         <div className="flex justify-between items-center gap-x-3">
@@ -127,7 +127,7 @@ const AccountDetails = () => {
             <LiaUserEditSolid className="text-xl md:text-2xl" />
           </i>
           <div>
-            <p className="font-bold text-sm md:text-base ">Profile Details</p>
+            <p className="font-bold text-sm md:text-base ">Edit Profile</p>
             <p className="text-xs text-gray-400 md:text-sm ">
               Change youlr profile detalis
             </p>
@@ -136,7 +136,7 @@ const AccountDetails = () => {
         <i>
           <GrFormNext className="md:text-xl" />
         </i>
-      </a>
+      </Link>
     </>
   );
 };

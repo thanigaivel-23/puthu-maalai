@@ -8,7 +8,13 @@ const crypto = require('crypto')
 //Register user - /api/register
 exports.registerUser = expressAsyncHandler(async(req,res)=>{
 
-    const {name, email, password, avatar} = req.body;
+    const {name, email, password} = req.body;
+
+    let avatar;
+    if(req.file){
+        avatar = `${process.env.BACKEND_URL}/uploads/user/${req.file.originalname}`
+    }
+
     const user = await userDB.create({
         name, email, password, avatar
     });
@@ -67,7 +73,7 @@ exports.forgotPassword = expressAsyncHandler(async(req,res,next)=>{
     await user.save({validateBeforeSave: false})
 
     //create reset url
-    const resetUrl = `${req.protocol}://${req.get('host')}/api/password/reset/${resetToken}`
+    const resetUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`
 
     const message = `Your password reset is as follows \n\n
     ${resetUrl} \n\n If you have not requested this email, then ignore it`
@@ -160,9 +166,16 @@ exports.changePassword = expressAsyncHandler(async(req,res,next)=>{
 
 //Update Profile - 
 exports.updateProfile = expressAsyncHandler(async(req,res,next)=>{
-    const newUserData = {
+
+    let newUserData = {
         name: req.body.name,
         email: req.body.email
+    }
+
+    let avatar;
+    if(req.file){
+        avatar = `${process.env.BACKEND_URL}/uploads/user/${req.file.originalname}`
+        newUserData = {...newUserData, avatar}
     }
 
     const user = await userDB.findByIdAndUpdate(req.user.id, newUserData, {

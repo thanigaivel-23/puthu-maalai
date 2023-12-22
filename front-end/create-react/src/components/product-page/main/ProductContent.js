@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ImgSilder from "./ImgSilder";
 
 import AboutProduct from "./productContent/AboutProduct";
@@ -22,7 +22,10 @@ const ProductContent = () => {
   
   const {loading, singleProduct} = useSelector((state)=>state.singleProductState )
 
-
+  const [quantity, setQuantity] = useState(1)
+  
+ 
+  
 
 
   return (
@@ -46,8 +49,8 @@ const ProductContent = () => {
                           <ProductRating ratings={singleProduct.ratings} numOfReviews = {singleProduct.numOfReviews}/>
                           <ProductPrice price={singleProduct.price} discount={singleProduct.discount}/>
                           <ProductSize  size={singleProduct.size}/>
-                          <ProductColor colors={singleProduct.colors}/>
-                          <ProductAddtoCart />
+                          <ProductColor colors={singleProduct.colors} stock={singleProduct.stock} quantity={quantity} setQuantity={setQuantity} />
+                          <ProductAddtoCart stock={singleProduct.stock} id={singleProduct._id} quantity={quantity} setQuantity={setQuantity}/>
                           <ProductPinCode />
                           <Product3Boxes />
                           <AboutProduct description={singleProduct.description}/>

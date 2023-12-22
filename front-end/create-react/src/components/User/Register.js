@@ -1,6 +1,14 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { clearAuthError, register } from '../../actions/userActions/userActions'
+import { toast } from 'react-toastify'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Register = () => {
+
+    const {loading, error, isAuthenticate} = useSelector(state => state.authState)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const [userData, setUserData] = useState({
         name: '',
@@ -8,30 +16,56 @@ const Register = () => {
         password: ''
     })
     const [avatar, setAvatar] = useState('')
-    const [avatarpreview, setAvatarpreview] = useState('/img/profile.png')
+    const [avatarPreview, setAvatarPreview] = useState('/img/profile.png')
 
     const onChange = (e) =>{
         if(e.target.name === 'avatar'){
-            const reader = new FileReader;
+            const reader = new FileReader();
             reader.onload = ()=>{
                 if(reader.readyState === 2){
-                    setAvatarpreview(reader.result)
+                    setAvatarPreview(reader.result)
                     setAvatar(e.target.files[0])
                 }
             }
             reader.readAsDataURL(e.target.files[0])
         }
         else{
-            console.log('2sssssssssss3er34');
-
             setUserData({...userData, [e.target.name] : e.target.value })
         }
     }
 
+    const handleSumbit = (e) =>{
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('name',userData.name)
+        formData.append('email',userData.email)
+        formData.append('password',userData.password)
+        formData.append('avatar',avatar)
+        dispatch(register(formData))
+
+    }
+
+    useEffect(()=>{
+
+        if(isAuthenticate){
+            return navigate('/')
+        }
+
+        if(error){
+            toast(error, {
+                position: toast.POSITION.TOP_CENTER,
+                type: 'error',
+                onOpen: ()=>{
+                    dispatch(clearAuthError)
+                }
+            })
+        }
+    },[error,isAuthenticate,dispatch, navigate])
+
   return (
     <Fragment>
         <div className="flex justify-center items-center  mt-16 md:mt-20 "> 
-            <form  className="shadow-2xl rounded-md p-8 mb-10 w-[80%] sm:w-96">
+            <form onSubmit={handleSumbit} className="shadow-2xl rounded-md p-8 mb-10 w-[80%] sm:w-96">
 
                 <h1 className="mb-3 flex justify-center text-2xl font-bold tracking-wider">Register</h1>
 
@@ -78,9 +112,9 @@ const Register = () => {
                         <div className=''>
                             <figure className=''>
                                 <img
-                                    src = {avatarpreview}
+                                    src = {avatarPreview}
                                     className='w-12 rounded-full'
-                                    alt='image'
+                                    alt='user profile'
                                 />
                             </figure>
                         </div>
@@ -105,11 +139,13 @@ const Register = () => {
                 id="login_button"
                 type="submit"
                 className="flex justify-center items-center w-full border mt-7   mb-2 rounded-md bg-rose-500 hover:bg-rose-600 text-white h-10"
+                disabled={loading}
+                
                 >
                 REGISTER
                 </button>
 
-                <a href="#" className="text-gray-500 text-sm ">Already have an account?</a>
+                <Link to="/login" className="text-gray-500 text-sm ">Already have an account?</Link>
             </form>
         </div>
  
