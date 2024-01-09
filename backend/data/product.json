@@ -3,8 +3,8 @@
     {
         "name": "PURE WHITE COTTON MAXI DRESS",
         "description": "Fashion expert believes that when you are confused about what to wear, pick a white cotton dress.",
-        "price": 999,
-        "discount" : 20,
+        "price": 1000,
+        "discount" : 10,
         "colors" : ["black", "white", "red"],
         "size" : ["s", "m", "l"],
         "ratings": 4.2,

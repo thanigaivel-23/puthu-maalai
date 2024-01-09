@@ -15,7 +15,6 @@ import MetaData from "../layouts/MetaData";
 
 const HomePages = () => {
 
-
   return (
     <>
       <MetaData titte={'Home - Pudhumaalai'}/>

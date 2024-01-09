@@ -1,6 +1,8 @@
+import React from "react";
+
 import "./App.css";
-import { Routes, Route, BrowserRouter} from "react-router-dom";
-import { HelmetProvider} from "react-helmet-async"
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -38,17 +40,16 @@ import ProtectedRoute from "./components/Route/ProtectedRoute";
 import UpdateProfile from "./components/User/UpdateProfile";
 import ForgotPassword from "./components/User/ForgotPassword";
 import ResetPassword from "./components/User/ResetPassword";
+import Address from "./components/cart-page/Address";
+import Payment from "./components/cart-page/Payment";
 
 
 
 function App() {
 
-    useEffect(()=>{
-      store.dispatch(loadUser)
-    })
-  // let path = window.location.pathname;
-
-  
+  useEffect(() => {
+    store.dispatch(loadUser)
+  })
 
 
   return (
@@ -57,43 +58,44 @@ function App() {
       <ScrollToTop />
       <div>
 
+        <Header />
+
         <HelmetProvider>
-            <Header />
-            <ToastContainer theme="dark"/>
-            {/* {path !== "/login" && path !== "/register" && <Header />} */}
-            <Routes>
-              <Route path="/" element={<HomePages />} />
-              <Route path="/product/:id" element={<ProductPage />} />
-              <Route path="/search/:keyword" element={<SearchPage />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/shop" element={<ShopPage />} />
-              <Route path="/order" element={<OrderPage />} />
-              <Route path="/category" element={<CategoryPage />} />
-              <Route path="/women" element={<WomenPage />} />
-              <Route path="/men" element={<MenPage />} />
-              <Route path="/brand" element={<BrandPage />} />
-              <Route path="/accessories" element={<AccessoriesPage />} />
-              <Route path="/gifts" element={<GiftsPage />} />
-              <Route path="/offer" element={<OfferPage />} />
-              <Route path="/account" element={ <ProtectedRoute> <AccountPage /> </ProtectedRoute>} />
-              <Route path="/update" element={ <ProtectedRoute> <UpdateProfile /> </ProtectedRoute>} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/password/forgot" element={<ForgotPassword />} />
-              <Route path="/password/reset/:token" element={<ResetPassword />} />
+          <ToastContainer theme="dark" />
+          <Routes>
+            <Route path="/" element={<HomePages />} />
+            <Route path="/product/:id" element={<ProductPage />} />
+            <Route path="/search/:keyword" element={<SearchPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/shop" element={<ShopPage />} />
+            <Route path="/order" element={<OrderPage />} />
+            <Route path="/category" element={<CategoryPage />} />
+            <Route path="/women" element={<WomenPage />} />
+            <Route path="/men" element={<MenPage />} />
+            <Route path="/brand" element={<BrandPage />} />
+            <Route path="/accessories" element={<AccessoriesPage />} />
+            <Route path="/gifts" element={<GiftsPage />} />
+            <Route path="/offer" element={<OfferPage />} />
+            <Route path="/account" element={<ProtectedRoute> <AccountPage /> </ProtectedRoute>} />
+            <Route path="/update" element={<ProtectedRoute> <UpdateProfile /> </ProtectedRoute>} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/password/forgot" element={<ForgotPassword />} />
+            <Route path="/password/reset/:token" element={<ResetPassword />} />
+            <Route path="/address" element={<ProtectedRoute> <Address /> </ProtectedRoute>} />
+            <Route path="/payment" element={<ProtectedRoute> <Payment /> </ProtectedRoute>} />
 
 
-          
-            </Routes>
-            <RoseBar />
-            <Bottom />
-            <CopyRight />
+          </Routes>
+          <RoseBar />
+          <Bottom />
+          <CopyRight />
           {/* 
             {path !== "/login" && path !== "/register" && (<RoseBar />)}
             {path !== "/login" && path !== "/register" && <Bottom />}
             {path !== "/login" && path !== "/register" && <CopyRight />} */}
         </HelmetProvider>
-        
+
       </div>
 
     </BrowserRouter>
