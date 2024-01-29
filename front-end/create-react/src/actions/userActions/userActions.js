@@ -6,13 +6,14 @@ import {
     logoutSuccess,
     updateProfileFail, updateProfileRequest, updateProfileSuccess, changeUpdate, forgotPasswordRequest, forgotPasswordSuccess, forgotPasswordFail, resetPasswordRequest, resetPasswordSuccess, resetPasswordFail,
 } from "../../slices/authSlice"
+import { API_URL } from "../../env"
 
 //login
 export const login = (email, password) => async (dispatch) => {
 
     try {
         dispatch(loginRequest())
-        const { data } = await axios.post('/api/login', { password, email })
+        const { data } = await axios.post(`${API_URL}/api/login`, { password, email })
         dispatch(loginSuccess(data))
     }
     catch (error) {
@@ -36,7 +37,7 @@ export const register = (userData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post('/api/register', userData, config)
+        const { data } = await axios.post(`${API_URL}/api/register`, userData, config)
         dispatch(registerSuccess(data))
     }
     catch (error) {
@@ -49,7 +50,7 @@ export const loadUser = async (dispatch) => {
 
     try {
         dispatch(loadUserRequest())
-        const { data } = await axios.get('/api/myprofile')
+        const { data } = await axios.get(`${API_URL}/api/myprofile`)
         dispatch(loadUserSuccess(data))
     }
     catch (error) {
@@ -60,7 +61,7 @@ export const loadUser = async (dispatch) => {
 //logout
 export const logout = async (dispatch) => {
 
-    await axios.get('/api/logout')
+    await axios.get(`${API_URL}/api/logout`)
     dispatch(logoutSuccess())
 }
 
@@ -75,7 +76,7 @@ export const updateProfile = (userData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.put('/api/update', userData, config)
+        const { data } = await axios.put(`${API_URL}/api/update`, userData, config)
         dispatch(updateProfileSuccess(data))
     }
     catch (error) {
@@ -93,7 +94,7 @@ export const forgotPassword = (email) => async (dispatch) => {
 
     try {
         dispatch(forgotPasswordRequest())
-        const { data } = await axios.post('/api/password/forgot', { email })
+        const { data } = await axios.post(`${API_URL}/api/password/forgot`, { email })
         dispatch(forgotPasswordSuccess(data))
     }
     catch (error) {
@@ -107,7 +108,7 @@ export const resetPassword = (password, confirmPassword, token) => async (dispat
     try {
         dispatch(resetPasswordRequest())
 
-        const { data } = await axios.post(`/api/password/reset/${token}`, { password, confirmPassword })
+        const { data } = await axios.post(`${API_URL}/api/password/reset/${token}`, { password, confirmPassword })
         dispatch(resetPasswordSuccess(data))
     }
     catch (error) {

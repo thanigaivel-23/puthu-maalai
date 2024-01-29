@@ -7,6 +7,7 @@ import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useS
 import axios from 'axios'
 import { createOrder } from '../../actions/orderActions'
 import { clearOrderError } from '../../slices/orderSlice'
+import { API_URL } from '../../env'
 
 const Payment = () => {
 
@@ -92,7 +93,7 @@ const Payment = () => {
         document.querySelector('#pay_btn').disabled = true
 
         try {
-            const { data } = await axios.post('/api/payment/process', paymentData)
+            const { data } = await axios.post(`${API_URL}/api/payment/process`, paymentData)
 
             const clientSecret = data.client_secret
 

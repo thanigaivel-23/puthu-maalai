@@ -56,14 +56,17 @@ const authSlice = createSlice({
                 error: action.payload
             }
         },
+
         loadUserRequest(state, action) {
             return {
+                ...state,
                 isAuthenticate: false,
                 loading: true
             }
         },
         loadUserSuccess(state, action) {
             return {
+                ...state,
                 loading: false,
                 isAuthenticate: true,
                 user: action.payload.user
@@ -71,10 +74,12 @@ const authSlice = createSlice({
         },
         loadUserFail(state, action) {
             return {
+                ...state,
                 loading: false,
                 isAuthenticate: false,
             }
         },
+
         logoutSuccess(state, action) {
             return {
                 loading: false,

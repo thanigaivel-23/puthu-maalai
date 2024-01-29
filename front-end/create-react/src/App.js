@@ -48,6 +48,7 @@ import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from "@stripe/stripe-js";
 import OrderDetail from "./components/order-page/OrderDetail";
 import Dashboard from "./components/admin/Dashboard";
+import { API_URL } from "./env";
 
 
 
@@ -59,7 +60,7 @@ function App() {
     store.dispatch(loadUser)
 
     async function getStripeApiKey() {
-      const { data } = await axios.get('/api/stripeApi')
+      const { data } = await axios.get(`${API_URL}/api/stripeApi`)
       setStripeApiKey(data.stripeApiKey)
     }
     getStripeApiKey()
@@ -103,7 +104,7 @@ function App() {
             <Route path="/orders" element={<ProtectedRoute> <OrderPage /> </ProtectedRoute>} />
             <Route path="/order/:id/:product" element={<ProtectedRoute> <OrderDetail /> </ProtectedRoute>} />
 
-            
+
             {/* admin routes */}
             <Route path="/admin/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
 

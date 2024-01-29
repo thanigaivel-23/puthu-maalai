@@ -1,12 +1,13 @@
 import axios from 'axios'
 import { productsFail, productsRequest, productsSuccess } from '../../slices/productsSlice'
+import { API_URL } from '../../env'
 
 export const getProducts = (keyword, price, categoryFilter, currentPage) => async (dispatch) => {
     try {
         dispatch(productsRequest())
 
         //normal
-        let link = `http://ec2-13-233-106-135.ap-south-1.compute.amazonaws.com/api/products?page=${currentPage}`
+        let link = `${API_URL}/api/products?page=${currentPage}`
 
         //Search
         if (keyword) {

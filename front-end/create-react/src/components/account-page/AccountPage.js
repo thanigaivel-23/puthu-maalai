@@ -17,7 +17,6 @@ const AccountPage = () => {
     navigate('/')
   }
 
-  console.log(user);
   return (
     <>
       {/* Account pic */}
