@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const app = express();
 const dotenv = require("dotenv")
 const path = require('path')
@@ -10,7 +11,7 @@ const payment = require("./routes/payment");
 
 dotenv.config({ path: path.join(__dirname, "config", ".env") });
 
-
+app.use(cors())
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))

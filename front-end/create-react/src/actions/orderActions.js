@@ -1,5 +1,6 @@
-import { createOrderFail, createOrderRequest, createOrderSuccess, createReviewFail,  createReviewSuccess, orderDetailFail, orderDetailRequest, orderDetailSuccess, userOrdersFail, userOrdersRequest, userOrdersSuccess } from "../slices/orderSlice"
+import { createOrderFail, createOrderRequest, createOrderSuccess, createReviewFail, createReviewSuccess, orderDetailFail, orderDetailRequest, orderDetailSuccess, userOrdersFail, userOrdersRequest, userOrdersSuccess } from "../slices/orderSlice"
 import axios from 'axios'
+
 
 export const createOrder = order => async (dispatch) => {
     try {
@@ -11,6 +12,18 @@ export const createOrder = order => async (dispatch) => {
         dispatch(createOrderFail(error.response.data.message))
     }
 }
+
+// export const createOrder = order => async (dispatch) => {
+//     try {
+//         const response = await httpGet()
+//         dispatch(createOrderRequest())
+//         const { data } = await axios.post('/api/order/new', order)
+//         dispatch(createOrderSuccess(data))
+
+//     } catch (error) {
+//         dispatch(createOrderFail(error.response.data.message))
+//     }
+// }
 
 export const userOrders = async (dispatch) => {
     try {
@@ -43,7 +56,7 @@ export const createReview = reviewData => async (dispatch) => {
         // dispatch(createReviewRequest())
         const config = {
             headers: {
-                'Content-type' : 'application/json'
+                'Content-type': 'application/json'
             }
         }
         const { data } = await axios.put(`/api/review`, reviewData, config)
