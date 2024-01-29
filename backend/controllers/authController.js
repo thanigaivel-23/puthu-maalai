@@ -146,7 +146,6 @@ exports.resetPassword = expressAsyncHandler(async (req, res, next) => {
 //Get user profile
 exports.getUserProfile = expressAsyncHandler(async (req, res, next) => {
     const user = await userDB.findById(req.user.id)
-    console.log(user);
     res.status(200).json({
         success: true,
         user

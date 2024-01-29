@@ -2,7 +2,7 @@ import React from "react";
 import { Rate } from 'antd';
 
 const ProductReview = ({ reviews }) => {
-  console.log(reviews);
+  
   return (
     <>
       {

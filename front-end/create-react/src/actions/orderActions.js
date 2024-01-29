@@ -1,12 +1,10 @@
-import { API_URL } from "../env"
-import { createOrderFail, createOrderRequest, createOrderSuccess, createReviewFail, createReviewSuccess, orderDetailFail, orderDetailRequest, orderDetailSuccess, userOrdersFail, userOrdersRequest, userOrdersSuccess } from "../slices/orderSlice"
+import { createOrderFail, createOrderRequest, createOrderSuccess, createReviewFail,  createReviewSuccess, orderDetailFail, orderDetailRequest, orderDetailSuccess, userOrdersFail, userOrdersRequest, userOrdersSuccess } from "../slices/orderSlice"
 import axios from 'axios'
-
 
 export const createOrder = order => async (dispatch) => {
     try {
         dispatch(createOrderRequest())
-        const { data } = await axios.post(`${API_URL}/api/order/new`, order)
+        const { data } = await axios.post('/api/order/new', order)
         dispatch(createOrderSuccess(data))
 
     } catch (error) {
@@ -14,13 +12,11 @@ export const createOrder = order => async (dispatch) => {
     }
 }
 
-
-
 export const userOrders = async (dispatch) => {
     try {
         dispatch(userOrdersRequest())
 
-        const { data } = await axios.get(`${API_URL}/api/myorders`)
+        const { data } = await axios.get('/api/myorders')
         dispatch(userOrdersSuccess(data))
 
     } catch (error) {
@@ -32,7 +28,7 @@ export const orderDetail = id => async (dispatch) => {
     try {
         dispatch(orderDetailRequest())
 
-        const { data } = await axios.get(`${API_URL}/api/order/${id}`)
+        const { data } = await axios.get(`/api/order/${id}`)
         dispatch(orderDetailSuccess(data))
 
     } catch (error) {
@@ -47,10 +43,10 @@ export const createReview = reviewData => async (dispatch) => {
         // dispatch(createReviewRequest())
         const config = {
             headers: {
-                'Content-type': 'application/json'
+                'Content-type' : 'application/json'
             }
         }
-        const { data } = await axios.put(`${API_URL}/api/review`, reviewData, config)
+        const { data } = await axios.put(`/api/review`, reviewData, config)
         dispatch(createReviewSuccess(data))
     }
     catch (error) {

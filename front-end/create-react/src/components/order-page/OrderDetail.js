@@ -40,8 +40,8 @@ const OrderDetail = () => {
 
         const formData = new FormData();
 
-        formData.append('rating', rating === 0 ? updatingReview[0].rating : rating)
-        formData.append('comment', comment === '' ? updatingReview[0].comment : comment)
+        formData.append('rating', rating === 0 ? (updatingReview.length > 0 && updatingReview[0].rating ): rating)
+        formData.append('comment', comment === '' ? (updatingReview.length > 0 && updatingReview[0].comment )  : comment)
         formData.append('productId', product)
 
         dispatch(createReview(formData))

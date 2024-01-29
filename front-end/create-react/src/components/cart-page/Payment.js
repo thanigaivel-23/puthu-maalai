@@ -7,7 +7,6 @@ import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useS
 import axios from 'axios'
 import { createOrder } from '../../actions/orderActions'
 import { clearOrderError } from '../../slices/orderSlice'
-import { API_URL } from '../../env'
 
 const Payment = () => {
 
@@ -23,13 +22,13 @@ const Payment = () => {
     //price - discount
     cartItems.forEach((item, index) => {
         const priceAfterDiscount = item.price - Math.round(item.price * item.discount / 100)
-        orderItems = [...orderItems,{ ...item }]
+        orderItems = [...orderItems, { ...item }]
         orderItems[index].price = priceAfterDiscount
     })
 
     //removing fields (stock, discount)
-    orderItems = orderItems.map(({stock, discount, ...item})=>item)
-    
+    orderItems = orderItems.map(({ stock, discount, ...item }) => item)
+
     const stripe = useStripe()
     const elements = useElements()
     const navigate = useNavigate()
@@ -65,7 +64,7 @@ const Payment = () => {
         order.totalPrice = orderInfo.total
     }
 
-   
+
 
     // const validateShipping = () => {
 
@@ -93,7 +92,7 @@ const Payment = () => {
         document.querySelector('#pay_btn').disabled = true
 
         try {
-            const { data } = await axios.post(`${API_URL}/api/payment/process`, paymentData)
+            const { data } = await axios.post('/api/payment/process', paymentData)
 
             const clientSecret = data.client_secret
 
