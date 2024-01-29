@@ -5,7 +5,7 @@ const ProductSize = ({size}) => {
   return (
     <>
     {size && size.length > 0 &&
-      <div className="px-5 md:px-10 lg:px-0 mt-3 md:mt-0 border-t-8 md:border-none">
+      <div className="px-5 md:px-10 lg:px-0 mt-3 md:mt-0 border-t-8 border-[#f5f5f5] md:border-none">
         <div className="flex items-center justify-between">
           <div className="font-bold text-sm md:text-lg">Size</div>
           <div className="flex items-center gap-x-5">

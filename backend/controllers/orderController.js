@@ -35,7 +35,7 @@ exports.newOrder = expressAsyncHandler(async (req, res, next) => {
 
 //Get Single Order - api/order/:id
 exports.getSingleOrder = expressAsyncHandler(async (req, res, next) => {
-    const order = await orderDB.findById(req.params.id).populate('user', 'name email');
+    const order = await orderDB.findById(req.params.id).populate('user', 'name email avatar');
     if (!order) {
         return next(new ErrorHandler(`Order not found with this id: ${req.params.id}`, 404))
     }

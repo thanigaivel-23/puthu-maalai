@@ -40,16 +40,17 @@ module.exports = (err, req, res, next) => {
       err.statusCode = 400
     }
 
-    if(err.code == 11000){
+    if (err.code == 11000) {
       let message = `Duplicate ${Object.keys(err.keyValue)} error`
       error = new ErrorHandler(message);
       err.statusCode = 400
 
     }
-      
+
     res.status(err.statusCode).json({
       success: false,
       message: error.message || "Internal Server Error",
     });
   }
 };
+  

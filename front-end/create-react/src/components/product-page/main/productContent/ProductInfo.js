@@ -4,7 +4,7 @@ const ProductInfo = ({brand, type, fabric, style, sizeAndFit}) => {
   return (
     <>
     {}
-      <div className="text-sm md:text-base mb-4  px-5 md:px-10 lg:px-0 md:pt-0 pt-3  mt-3 md:mt-6 border-t-8 md:border-none">
+      <div className="text-sm md:text-base mb-4  px-5 md:px-10 lg:px-0 md:pt-0 pt-3  mt-3 md:mt-6 border-t-8 border-[#f5f5f5] md:border-none">
         <p className="font-bold mb-2 md:mb-0">Details</p>
         <table className="">
           <tbody>

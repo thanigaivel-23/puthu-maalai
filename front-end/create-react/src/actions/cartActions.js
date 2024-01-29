@@ -16,6 +16,7 @@ export const addCartItem = (id, quantity) => async (dispatch) => {
             stock: data.product.stock,
             quantity
         }))
+
     }
     catch (error) {
 

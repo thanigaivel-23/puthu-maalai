@@ -24,37 +24,37 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: String
     },
-    role:{
+    role: {
         type: String,
         default: 'user'
     },
-    resetPasswordToken : String,
+    resetPasswordToken: String,
     resetPasswordTokenExpire: Date,
-    createdAt : {
+    createdAt: {
         type: Date,
         default: Date.now()
     }
 })
 
-userSchema.pre('save',async function(next){
-    if(!this.isModified('password')){
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) {
         next()
     }
-    this.password = await bcrypt.hash(this.password,10)
+    this.password = await bcrypt.hash(this.password, 10)
 
 })
 
-userSchema.methods.getJwtToken = function (){
-    return jwt.sign({id: this.id}, process.env.JWT_SECRET_KEY,{
-        expiresIn:process.env.JWT_EXPIRES_TIME
+userSchema.methods.getJwtToken = function () {
+    return jwt.sign({ id: this.id }, process.env.JWT_SECRET_KEY, {
+        expiresIn: process.env.JWT_EXPIRES_TIME
     })
 }
 
-userSchema.methods.isValidPassword =  function (enteredPassword){
-    return  bcrypt.compare(enteredPassword, this.password)
+userSchema.methods.isValidPassword = function (enteredPassword) {
+    return bcrypt.compare(enteredPassword, this.password)
 }
 
-userSchema.methods.getResetPasswordToken = function (){
+userSchema.methods.getResetPasswordToken = function () {
     //generate token
     const token = crypto.randomBytes(20).toString('hex');
 

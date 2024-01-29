@@ -4,22 +4,26 @@ const singleProductSlice = createSlice({
     name: 'single Product',
     initialState: {
         loading: false,
-        singleProduct: {}
+        singleProduct: {},
+
     },
-    reducers:{
-        singleProductRequest(state, action){
-                return {
-                    loading: true
-                }
-        },
-        singleProductSuccess(state, action){
-            return{
-                loading: false,
-                singleProduct : action.payload.product
+    reducers: {
+        singleProductRequest(state, action) {
+            return {
+                ...state,
+                loading: true
             }
         },
-        singleProductFail(state,action){
+        singleProductSuccess(state, action) {
             return {
+                ...state,
+                loading: false,
+                singleProduct: action.payload.product
+            }
+        },
+        singleProductFail(state, action) {
+            return {
+                ...state,
                 loading: false,
                 error: action.payload
             }
@@ -27,7 +31,12 @@ const singleProductSlice = createSlice({
     }
 })
 
-const {actions,reducer} = singleProductSlice
+const { actions, reducer } = singleProductSlice
 
-export const {singleProductFail, singleProductRequest, singleProductSuccess} = actions
+export const {
+    singleProductFail,
+    singleProductRequest,
+    singleProductSuccess
+    
+} = actions
 export default reducer;

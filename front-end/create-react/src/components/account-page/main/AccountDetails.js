@@ -1,6 +1,6 @@
 import React from "react";
-import {Link} from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
+import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { GrMapLocation } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
 import { LiaUserEditSolid } from "react-icons/lia";
@@ -9,12 +9,33 @@ import { CiDiscount1 } from "react-icons/ci";
 import { BsWallet2 } from "react-icons/bs";
 import { LiaCreditCardSolid } from "react-icons/lia";
 
-const AccountDetails = () => {
+const AccountDetails = ({ user }) => {
   return (
     <>
+      {/* dashboard */}
+      {user.role === 'admin' && <Link
+        to="/admin/dashboard"
+        className="flex justify-between items-center px-3 md:px-20 py-3 md:py-5 border-b-2"
+      >
+        <div className="flex justify-between items-center gap-x-3">
+          <i>
+            <MdOutlineDashboardCustomize className=" text-xl md:text-2xl" />
+          </i>
+          <div>
+            <p className="font-bold text-sm md:text-base ">Dashboard</p>
+            <p className="text-xs text-gray-400 md:text-sm ">
+              Control Panel
+            </p>
+          </div>
+        </div>
+        <i>
+          <GrFormNext className="md:text-xl" />
+        </i>
+      </Link>}
+
       {/* order */}
       <Link
-        to="/order"
+        to="/orders"
         className="flex justify-between items-center px-3 md:px-20 py-3 md:py-5 border-b-2"
       >
         <div className="flex justify-between items-center gap-x-3">

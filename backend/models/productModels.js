@@ -19,8 +19,8 @@ const productSchema = new mongoose.Schema({
     required: [true, "please enter discount"],
   },
 
-  colors:[
-     {
+  colors: [
+    {
       type: String,
       trim: true,
       lowercase: true,
@@ -28,29 +28,29 @@ const productSchema = new mongoose.Schema({
     }
   ],
 
-  size:[
+  size: [
     {
-    type: String,
-    trim: true,
-    uppercase: true,
-    require: [true, "please enter size"]
+      type: String,
+      trim: true,
+      uppercase: true,
+      require: [true, "please enter size"]
     }
   ],
   description: {
     type: String,
     required: [true, "please enter product description"],
   },
-  brand:    String,
-  type:    String,
-  fabric:    String,
-  style:    String,
-  sizeAndFit:    String,  
+  brand: String,
+  type: String,
+  fabric: String,
+  style: String,
+  sizeAndFit: String,
 
   ratings: {
     type: Number,
     default: 0,
   },
-  
+
   images: [
     {
       image: {
@@ -84,8 +84,10 @@ const productSchema = new mongoose.Schema({
 
   reviews: [
     {
-      user: mongoose.Schema.ObjectId,
-
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+      },
       rating: {
         type: String,
         required: true,
@@ -93,6 +95,10 @@ const productSchema = new mongoose.Schema({
       comment: {
         type: String,
         required: true,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now(),
       },
     },
   ],
@@ -107,4 +113,4 @@ const productSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('product',productSchema);
+module.exports = mongoose.model('product', productSchema);

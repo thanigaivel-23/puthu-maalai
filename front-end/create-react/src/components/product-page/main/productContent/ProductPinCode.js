@@ -3,7 +3,7 @@ import React from "react";
 const ProductPinCode = () => {
   return (
     <>
-      <div className="px-5 md:px-10 lg:px-0 pt-3 md:pt-0   mt-3 md:mt-12 border-t-8 md:border-none">
+      <div className="px-5 md:px-10 lg:px-0 pt-3 md:pt-0   mt-3 md:mt-12 border-[#f5f5f5] border-t-8 md:border-none">
         <h2 className="font-bold text-sm md:text-xl">
           Select Delivery Location
         </h2>

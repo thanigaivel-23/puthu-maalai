@@ -19,48 +19,43 @@ import MetaData from "../../layouts/MetaData";
 
 const ProductContent = () => {
 
-  
-  const {loading, singleProduct} = useSelector((state)=>state.singleProductState )
 
+  const { loading, singleProduct } = useSelector((state) => state.singleProductState)
   const [quantity, setQuantity] = useState(1)
-  
- 
-  
-
 
   return (
     <>
-      {loading ? <Loader/> : 
-                        <main className="lg:flex lg:mx-10 lg:mt-10">
-                          <MetaData titte={singleProduct.name}/>
-                        {/* left */}
-                        <div className=" lg:w-2/5 relative hidden lg:block">
-                          <ImgSilder singleProduct={singleProduct}/>
-                        </div>
+      {loading ? <Loader /> :
+        <main className="lg:flex lg:mx-10 lg:mt-10">
+          <MetaData titte={singleProduct.name} />
+          {/* left */}
+          <div className=" lg:w-2/5 relative hidden lg:block">
+            <ImgSilder singleProduct={singleProduct} />
+          </div>
 
-                        {/* right */}
-                        <div className=" lg:ml-10 lg:w-3/5 ">
-                          <ProductTop />
-                          <ProductTitle name = {singleProduct.name}/>
-                          <div className=" relative  lg:hidden">
-                            <ImgSilder singleProduct={singleProduct} />
-                          </div>
+          {/* right */}
+          <div className=" lg:ml-10 lg:w-3/5 ">
+            <ProductTop />
+            <ProductTitle name={singleProduct.name} />
+            <div className=" relative  lg:hidden">
+              <ImgSilder singleProduct={singleProduct} />
+            </div>
 
-                          <ProductRating ratings={singleProduct.ratings} numOfReviews = {singleProduct.numOfReviews}/>
-                          <ProductPrice price={singleProduct.price} discount={singleProduct.discount}/>
-                          <ProductSize  size={singleProduct.size}/>
-                          <ProductColor colors={singleProduct.colors} stock={singleProduct.stock} quantity={quantity} setQuantity={setQuantity} />
-                          <ProductAddtoCart stock={singleProduct.stock} id={singleProduct._id} quantity={quantity} setQuantity={setQuantity}/>
-                          <ProductPinCode />
-                          <Product3Boxes />
-                          <AboutProduct description={singleProduct.description}/>
-                          <ProductInfo brand={singleProduct.brand} type={singleProduct.type} fabric={singleProduct.fabric} style={singleProduct.style} sizeAndFit={singleProduct.sizeAndFit} />
-                          <ProductReview reviews = {singleProduct.reviews}/>
-                        </div>
-                      </main>       }
-      
+            <ProductRating ratings={singleProduct.ratings} numOfReviews={singleProduct.numOfReviews} />
+            <ProductPrice price={singleProduct.price} discount={singleProduct.discount} />
+            <ProductSize size={singleProduct.size} />
+            <ProductColor colors={singleProduct.colors} stock={singleProduct.stock} quantity={quantity} setQuantity={setQuantity} />
+            <ProductAddtoCart stock={singleProduct.stock} id={singleProduct._id} quantity={quantity} />
+            <ProductPinCode />
+            <Product3Boxes />
+            <AboutProduct description={singleProduct.description} />
+            <ProductInfo brand={singleProduct.brand} type={singleProduct.type} fabric={singleProduct.fabric} style={singleProduct.style} sizeAndFit={singleProduct.sizeAndFit} />
+            <ProductReview reviews={singleProduct.reviews} />
+          </div>
+        </main>}
 
-      
+
+
     </>
   );
 };

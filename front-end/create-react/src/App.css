@@ -96,3 +96,21 @@
   margin-top: 100px;
   font-weight: 700;
 }
+
+/* modal close(X) button */
+
+ .ant-modal-close-icon{
+  margin-left: 0 !important
+
+}
+
+/* modal height */
+.ant-modal-content{
+  height: 354px;
+}
+
+/* rating star */
+.anticon-star{
+  margin-left: 0 !important
+
+}

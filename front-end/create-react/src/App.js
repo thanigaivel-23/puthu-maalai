@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./App.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
@@ -42,14 +42,29 @@ import ForgotPassword from "./components/User/ForgotPassword";
 import ResetPassword from "./components/User/ResetPassword";
 import Address from "./components/cart-page/Address";
 import Payment from "./components/cart-page/Payment";
+import PaymentSuccess from "./components/cart-page/PaymentSuccess";
+import axios from "axios";
+import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from "@stripe/stripe-js";
+import OrderDetail from "./components/order-page/OrderDetail";
+import Dashboard from "./components/admin/Dashboard";
 
 
 
 function App() {
 
+  const [stripeApiKey, setStripeApiKey] = useState('')
+
   useEffect(() => {
     store.dispatch(loadUser)
-  })
+
+    async function getStripeApiKey() {
+      const { data } = await axios.get('/api/stripeApi')
+      setStripeApiKey(data.stripeApiKey)
+    }
+    getStripeApiKey()
+
+  }, [])
 
 
   return (
@@ -57,18 +72,17 @@ function App() {
 
       <ScrollToTop />
       <div>
-
         <Header />
 
         <HelmetProvider>
           <ToastContainer theme="dark" />
+
           <Routes>
             <Route path="/" element={<HomePages />} />
             <Route path="/product/:id" element={<ProductPage />} />
             <Route path="/search/:keyword" element={<SearchPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/shop" element={<ShopPage />} />
-            <Route path="/order" element={<OrderPage />} />
             <Route path="/category" element={<CategoryPage />} />
             <Route path="/women" element={<WomenPage />} />
             <Route path="/men" element={<MenPage />} />
@@ -83,10 +97,20 @@ function App() {
             <Route path="/password/forgot" element={<ForgotPassword />} />
             <Route path="/password/reset/:token" element={<ResetPassword />} />
             <Route path="/address" element={<ProtectedRoute> <Address /> </ProtectedRoute>} />
-            <Route path="/payment" element={<ProtectedRoute> <Payment /> </ProtectedRoute>} />
+            {stripeApiKey && <Route path="/payment" element={<ProtectedRoute> <Elements stripe={loadStripe(stripeApiKey)}> <Payment /> </Elements> </ProtectedRoute>} />
+            }
+            <Route path="/order/success" element={<ProtectedRoute> <PaymentSuccess /> </ProtectedRoute>} />
+            <Route path="/orders" element={<ProtectedRoute> <OrderPage /> </ProtectedRoute>} />
+            <Route path="/order/:id/:product" element={<ProtectedRoute> <OrderDetail /> </ProtectedRoute>} />
+
+            
+            {/* admin routes */}
+            <Route path="/admin/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
 
 
           </Routes>
+
+
           <RoseBar />
           <Bottom />
           <CopyRight />

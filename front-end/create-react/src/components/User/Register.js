@@ -41,6 +41,9 @@ const Register = () => {
         formData.append('email',userData.email)
         formData.append('password',userData.password)
         formData.append('avatar',avatar)
+
+        console.log(formData);
+        
         dispatch(register(formData))
 
     }

@@ -20,7 +20,7 @@ const ProductColor = ({ colors, stock, quantity, setQuantity }) => {
 
   return (
     <>
-      <div className="  flex  pt-3 md:pt-0 items-center justify-between md:justify-normal  md:gap-x-40 px-5 md:px-10 lg:px-0 mt-3 md:mt-8 border-t-8 md:border-none">
+      <div className="  flex  pt-3 md:pt-0 items-center justify-between md:justify-normal  md:gap-x-40 px-5 md:px-10 lg:px-0 mt-3 md:mt-8 border-t-8 border-[#f5f5f5] md:border-none">
         {/* color */}
         {colors && colors.length > 0 &&
           <div>

@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const orderSchema = mongoose.Schema({
     shippingInfo: {
-        name: {
+        address: {
             type: String,
             required: true
         },
-        address: {
+        state: {
             type: String,
             required: true
         },
@@ -48,6 +48,10 @@ const orderSchema = mongoose.Schema({
         price: {
             type: Number,
             required: true
+        },
+        description: {
+            type: String,
+            required: [true, "please enter product description"],
         },
         product: {
             type: mongoose.SchemaTypes.ObjectId,

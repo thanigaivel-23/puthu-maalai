@@ -30,20 +30,22 @@ const CartPage = () => {
     dispatch(decreaseCartItemQty(item.product))
   }
 
-  //Total details
+  //total details
 
-  //Total MRP
-  let TotalMRP = items.reduce((acc, item) => (acc + item.price * item.quantity), 0)
 
-  // discounted MRP
-  let discountedMRP = items.reduce((acc, item) => (Math.round(item.price * item.discount / 100) * item.quantity), 0)
+  let productPriceBeforeDiscount = items.reduce((acc, item) => (acc + item.price * item.quantity), 0)
+  let discountPrice = items.reduce((acc, item) => (Math.round(item.price * item.discount / 100) * item.quantity), 0)
+  let productPrice = productPriceBeforeDiscount - discountPrice
+  let convenienceFee = 50
+  let tax = Math.round(productPrice * 0.18)
 
+  let total = productPrice + convenienceFee + tax
 
 
   //Proceed to payment
   const paymentData = () => {
     const data = {
-      TotalMRP, discountedMRP
+      productPriceBeforeDiscount, discountPrice, productPrice, convenienceFee, tax, total
     }
     sessionStorage.setItem('orderInfo', JSON.stringify(data))
   }
@@ -61,8 +63,12 @@ const CartPage = () => {
 
       {/* main  ------------------------------------------------>*/}
       {items.length === 0 ?
+        <Empty description={false} className="m-10 mb-16 md:text-lg font-bold" >
 
-        <Empty description={'Your Cart Is Empty'} className="m-10 mb-16 md:text-lg" />
+          <div className="mt-24">Your Cart Is Empty,
+            <Link to={'/shop'} className=" text-rose-500 ml-1">Shop Now</Link>
+          </div>
+        </Empty>
 
         :
         <Fragment>
@@ -194,7 +200,7 @@ const CartPage = () => {
 
             </div>
 
-            {/* right               Total  --------------------------------------------------> */}
+            {/* right               total  --------------------------------------------------> */}
             <div className="lg:w-4/12 lg:ml-7 ">
 
               {/* CartCoupons */}
@@ -222,12 +228,12 @@ const CartPage = () => {
                   PRICE DETAILS ({items.length} ITMES)
                 </h3>
                 <div className="flex justify-between mt-3 text-xs md:text-base">
-                  <p className="text-slate-700">Total MRP</p>
-                  <p className="font-bold">&#8377;{TotalMRP}</p>
+                  <p className="text-slate-700">total MRP</p>
+                  <p className="font-bold">&#8377;{productPriceBeforeDiscount}</p>
                 </div>
                 <div className="flex justify-between mt-3 text-xs md:text-base">
                   <p className="text-slate-700">Discount on MRP</p>
-                  <p className="font-bold">&#8377;{discountedMRP}</p>
+                  <p className="font-bold">&#8377;{discountPrice}</p>
                 </div>
                 <div className="flex justify-between mt-3 text-xs md:text-base">
                   <p className="text-slate-700">Coupon Discount</p>
@@ -239,16 +245,17 @@ const CartPage = () => {
                     <span className="text-rose-500 font-bold">Know More</span>
                   </p>
                   <p className="font-bold">
-                    <span className="line-through">&#8377;30</span> &#8377;50
+                    &#8377;{convenienceFee}
                   </p>
                 </div>
+
                 <div className="flex justify-between mt-3 border-b-2 pb-5 text-xs md:text-base">
                   <p className="text-slate-700">Tax</p>
-                  <p className="font-bold">&#8377;20</p>
+                  <p className="font-bold">&#8377;{tax}</p>
                 </div>
                 <div className="flex justify-between mt-3  text-sm">
-                  <p className="text-slate-700 font-bold md:text-lg">Total</p>
-                  <p className="font-bold md:text-lg">&#8377;{TotalMRP - discountedMRP}</p>
+                  <p className="text-slate-700 font-bold md:text-lg">total</p>
+                  <p className="font-bold md:text-lg">&#8377;{total}</p>
                 </div>
                 <button onClick={checkoutHandler}
                   className="bg-rose-500 text-white font-semibold rounded-md text-center h-12 mt-4 w-full text-sm md:text-base">
