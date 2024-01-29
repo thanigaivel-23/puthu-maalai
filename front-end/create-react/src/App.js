@@ -49,12 +49,16 @@ import { loadStripe } from "@stripe/stripe-js";
 import OrderDetail from "./components/order-page/OrderDetail";
 import Dashboard from "./components/admin/Dashboard";
 import { API_URL } from "./env";
+import { useDispatch } from "react-redux";
 
 
 
 function App() {
 
   const [stripeApiKey, setStripeApiKey] = useState('')
+  const dispatch = useDispatch()
+
+
 
   useEffect(() => {
     store.dispatch(loadUser)
@@ -65,7 +69,7 @@ function App() {
     }
     getStripeApiKey()
 
-  }, [])
+  }, [dispatch])
 
 
   return (

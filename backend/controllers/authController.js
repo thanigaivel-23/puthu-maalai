@@ -12,13 +12,13 @@ exports.registerUser = expressAsyncHandler(async (req, res) => {
 
     let avatar;
 
-    // let BASE_URL = process.env.BACKEND_URL;
-    // if (process.env.NODE_ENV === 'production') {
-    //     BASE_URL = `${req.protocol}://${req.get('host')}`
-    // }
+    let BASE_URL = process.env.BACKEND_URL;
+    if (process.env.NODE_ENV === 'production') {
+        BASE_URL = `${req.protocol}://${req.get('host')}`
+    }
 
     if (req.file) {
-        avatar = `${process.env.BACKEND_URL}/uploads/user/${req.file.originalname}`
+        avatar = `${BASE_URL}/uploads/user/${req.file.originalname}`
     }
 
     const user = await userDB.create({
@@ -78,12 +78,12 @@ exports.forgotPassword = expressAsyncHandler(async (req, res, next) => {
     const resetToken = user.getResetPasswordToken();
     await user.save({ validateBeforeSave: false })
 
-    // let BASE_URL = process.env.FRONTEND_URL;
-    // if (process.env.NODE_ENV === 'production') {
-    //     BASE_URL = `${req.protocol}://${req.get('host')}`
-    // }
+    let BASE_URL = process.env.FRONTEND_URL;
+    if (process.env.NODE_ENV === 'production') {
+        BASE_URL = `${req.protocol}://${req.get('host')}`
+    }
     //create reset url
-    const resetUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`
+    const resetUrl = `${BASE_URL}/password/reset/${resetToken}`
 
     const message = `Your password reset is as follows \n\n
     ${resetUrl} \n\n If you have not requested this email, then ignore it`
@@ -145,9 +145,8 @@ exports.resetPassword = expressAsyncHandler(async (req, res, next) => {
 
 //Get user profile
 exports.getUserProfile = expressAsyncHandler(async (req, res, next) => {
-    console.log(req.user.id);
-    console.log(23);
     const user = await userDB.findById(req.user.id)
+    console.log(user);
     res.status(200).json({
         success: true,
         user
@@ -187,13 +186,13 @@ exports.updateProfile = expressAsyncHandler(async (req, res, next) => {
 
     let avatar;
 
-    // let BASE_URL = process.env.BACKEND_URL;
-    // if (process.env.NODE_ENV === 'production') {
-    //     BASE_URL = `${req.protocol}://${req.get('host')}`
-    // }
+    let BASE_URL = process.env.BACKEND_URL;
+    if (process.env.NODE_ENV === 'production') {
+        BASE_URL = `${req.protocol}://${req.get('host')}`
+    }
 
     if (req.file) {
-        avatar = `${process.env.BACKEND_URL}/uploads/user/${req.file.originalname}`
+        avatar = `${BASE_URL}/uploads/user/${req.file.originalname}`
         newUserData = { ...newUserData, avatar }
     }
 
