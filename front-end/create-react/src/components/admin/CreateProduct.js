@@ -96,6 +96,7 @@ const CreateProduct = () => {
     return (
         <>
             {/* heading */}
+            
             <div className='md:w-[70%] lg:w-[50%] mx-auto mt-12 hidden md:flex md:text-lg items-center gap-x-3 '>
                 <Link to={'/admin/products'}><BsArrowLeft className="text-2xl " /> </Link>
                 <p className='font-medium'>Back</p>
