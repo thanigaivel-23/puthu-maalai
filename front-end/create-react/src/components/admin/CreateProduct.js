@@ -63,6 +63,9 @@ const CreateProduct = () => {
 
     }
     console.log(123456);
+    console.log(123456);
+    console.log(123456);
+    
 
     useEffect(() => {
         if (isProductCreated) {
