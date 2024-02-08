@@ -62,10 +62,6 @@ const CreateProduct = () => {
         dispatch(createNewProduct(formData))
 
     }
-    console.log(123456);
-    console.log(123456);
-    console.log(123456);
-    
 
     useEffect(() => {
         if (isProductCreated) {
@@ -96,7 +92,7 @@ const CreateProduct = () => {
     return (
         <>
             {/* heading */}
-            
+
             <div className='md:w-[70%] lg:w-[50%] mx-auto mt-12 hidden md:flex md:text-lg items-center gap-x-3 '>
                 <Link to={'/admin/products'}><BsArrowLeft className="text-2xl " /> </Link>
                 <p className='font-medium'>Back</p>
@@ -110,45 +106,45 @@ const CreateProduct = () => {
                 {/* name */}
                 <p className='mx-3 py-3 text-sm md:text-base font-bold text-gray-700 '>Name of the Product</p>
 
-                <input onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder='Enter Product Name'  className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm' />
+                <input onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder='Enter Product Name' className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm' />
 
                 {/* price */}
                 <p className='mx-3 py-3 text-sm md:text-base font-bold text-gray-700 '>Price</p>
 
-                <input onChange={(e) => setPrice(e.target.value)} value={price} onch type="number" placeholder='Enter Productn Price Without Discount '  className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm' />
+                <input onChange={(e) => setPrice(e.target.value)} value={price} onch type="number" placeholder='Enter Productn Price Without Discount ' className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm' />
 
-                <input onChange={(e) => setDiscount(e.target.value)} value={discount} type="number" placeholder='Enter Discount in %'  className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm' />
+                <input onChange={(e) => setDiscount(e.target.value)} value={discount} type="number" placeholder='Enter Discount in %' className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm' />
 
                 <input value={Number(price) - Number(Math.round(price * discount / 100)) || 'final price'} type="number" placeholder='Final Price' readOnly className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm' />
 
                 {/* description */}
                 <p className='mx-3 py-3 text-sm md:text-base font-bold text-gray-700 '>Description</p>
 
-                <textarea onChange={(e) => setDescription(e.target.value)} value={description} cols="20" rows="6"  placeholder='Description' className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm'></textarea>
+                <textarea onChange={(e) => setDescription(e.target.value)} value={description} cols="20" rows="6" placeholder='Description' className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm'></textarea>
 
-                <input onChange={(e) => setStock(e.target.value)} value={stock} type="number" placeholder='Stock'  className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm' />
+                <input onChange={(e) => setStock(e.target.value)} value={stock} type="number" placeholder='Stock' className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm' />
 
-                <input onChange={(e) => setSellerName(e.target.value)} value={sellerName} type="text" placeholder='Seller Name'  className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm' />
+                <input onChange={(e) => setSellerName(e.target.value)} value={sellerName} type="text" placeholder='Seller Name' className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm' />
 
                 <input onChange={(e) => setSize(e.target.value)} value={size} type="text" placeholder='Size' className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm' />
 
                 <input onChange={(e) => setColor(e.target.value)} value={color} type="text" placeholder='Color' className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm' />
 
-                <input onChange={(e) => setCategory(e.target.value)} value={category} type="text" placeholder='Category'  className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm' />
+                <input onChange={(e) => setCategory(e.target.value)} value={category} type="text" placeholder='Category' className='outline-none border rounded-sm box-border w-11/12 mx-3 mb-3 px-3 py-2 focus:border-gray-700 placeholder:text-sm' />
 
                 {/* images */}
                 <p className='mx-3 py-3 text-sm md:text-base font-bold text-gray-700 '>Images</p>
 
-                <div className='m-3 mb-9 w-11/12 flex'>
+                <div className='m-3 mb-9 w-11/12 flex relative '>
                     {imagePerview.map((image, index) => (
                         <img className='mr-2' key={index} src={image} alt='preview images' height={'52'} width={'55'} />
                     ))}
                     <label htmlFor="product_img"
-                        className='cursor-pointer w-full border px-3 py-2 rounded-md bg-gray-100 '>
+                        className='cursor-pointer w-full border px-3 py-2 rounded-md bg-gray-100 z-10'>
                         Choose Images
                     </label>
 
-                    <input onChange={imageHandler} id='product_img' type="file" multiple  className='hidden' />
+                    <input required onChange={imageHandler} name='productPic' id='product_img' type="file" className='absolute ' />
                 </div>
 
                 {/* SAVE */}

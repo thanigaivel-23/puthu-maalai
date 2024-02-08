@@ -10,11 +10,15 @@ import { Link } from 'react-router-dom'
 import { MdOutlineEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa6";
+import { deleteProduct } from '../../actions/productsActions/singleProductAction'
+import { clearProductDeleted } from '../../slices/singleProductSlice'
 
 const ProductsList = () => {
     const dispatch = useDispatch()
 
     const { products = [], loading = true, error } = useSelector(state => state.productsState)
+    const { isProductDeleted, error: productError } = useSelector(state => state.singleProductState)
+
 
     const [items, setItems] = useState([])
     const [filterVal, setFilterVal] = useState('')
@@ -39,13 +43,29 @@ const ProductsList = () => {
         setFilterVal(e.target.value)
     }
 
+    const deleteHandler = (e, id) => {
+        e.target.disabled = true
+        dispatch(deleteProduct(id))
+    }
+
     useEffect(() => {
 
-        if (error) {
-            toast(error, {
+        if (error || productError) {
+            toast(error || productError, {
                 position: toast.POSITION.TOP_CENTER,
                 type: 'error',
                 onOpen: () => dispatch(clearError())
+            })
+            return;
+        }
+
+        if (isProductDeleted) {
+            toast('Product Deleted Successfully', {
+                position: toast.POSITION.TOP_CENTER,
+                type: 'success',
+                onOpen: () => {
+                    dispatch(clearProductDeleted())
+                }
             })
             return;
         }
@@ -58,7 +78,7 @@ const ProductsList = () => {
         fetchData()
         dispatch(getAdminProducts)
 
-    }, [error, dispatch])
+    }, [error, dispatch, isProductDeleted, productError])
 
     return (
         <>
@@ -96,7 +116,7 @@ const ProductsList = () => {
                                     <td className='border-x border-[#ddd] text-center p-2 xs:p-3' >{product.stock}</td>
                                     <td className='border-x  border-[#ddd] text-center  p-2 xs:p-3 flex  gap-x-2' >
                                         <Link to={`/admin/product/${product._id}`} className='bg-blue-500 p-2 xs:p-3 rounded-md '><MdOutlineEdit className='text-white text-xl' /></Link>
-                                        <p className='bg-red-500 p-2 xs:p-3  rounded-md'><RiDeleteBin6Line className='text-white text-xl' /></p>
+                                        <button onClick={(e) => deleteHandler(e, product._id)} className='bg-red-500 p-2 xs:p-3  rounded-md'><RiDeleteBin6Line className='text-white text-xl' /></button>
                                     </td>
                                 </tr>)
                             )}
