@@ -30,13 +30,9 @@ export const register = (userData) => async (dispatch) => {
 
     try {
         dispatch(registerRequest())
-        const config = {
-            headers: {
-                'Content-type': 'multipart/form-data'
-            }
-        }
+        
 
-        const { data } = await axios.post('/api/register', userData, config)
+        const { data } = await axios.post('/api/register', userData)
         dispatch(registerSuccess(data))
     }
     catch (error) {

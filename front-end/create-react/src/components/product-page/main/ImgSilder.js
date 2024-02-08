@@ -38,7 +38,7 @@ let lengthVal = 0;
     ]
   };
 
-  const [img, setImg] = useState(singleProduct.images && singleProduct.images[0].image)
+  const [img, setImg] = useState(singleProduct.images.length > 0 && singleProduct.images[0].image)
 
 
   return (
