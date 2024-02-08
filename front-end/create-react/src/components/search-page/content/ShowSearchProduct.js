@@ -22,7 +22,7 @@ const ShowSearchProduct = ({products,loading}) => {
                                               {product.category}
                                             </p>
                                             <Link to={`/product/${product._id}`} preventScrollReset={true}>
-                                              <img src={product.images[0].image} alt="" className="h-36 xs:h-56 lg:h-72 w-full object-cover " />
+                                              <img src={product.images.length > 0 ?product.images[0].image : null} alt="" className="h-36 xs:h-56 lg:h-72 w-full object-cover " />
                                             </Link>
                               
                                             {/* product details */}

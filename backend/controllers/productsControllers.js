@@ -39,7 +39,6 @@ const getProducts = expressAsyncHandler(async (req, res, next) => {
 });
 
 /// GET get single product - /api/product/:id
-
 const getSingleProduct = expressAsyncHandler(async (req, res, next) => {
 
   const product = await productDB.findById(req.params.id).populate('reviews.user', 'name avatar')
@@ -54,21 +53,7 @@ const getSingleProduct = expressAsyncHandler(async (req, res, next) => {
 
 
 
-// POST create product - /api/products/new
-const newProduct = expressAsyncHandler(async (req, res) => {
-
-
-
-  const product = await productDB.create(req.body);
-
-  res.status(201).json({
-    success: true,
-    product: product,
-  });
-});
-
 /// PUT Update product - /api/products/:id
-
 const updateProduct = expressAsyncHandler(async (req, res) => {
   const product = await productDB.findById(req.params.id);
 
@@ -89,7 +74,6 @@ const updateProduct = expressAsyncHandler(async (req, res) => {
 });
 
 /// DELETE Delete product - /api/products/:id
-
 const deleteProduct = expressAsyncHandler(async (req, res) => {
   const product = await productDB.findById(req.params.id);
 
@@ -111,7 +95,7 @@ const deleteProduct = expressAsyncHandler(async (req, res) => {
 const createReview = expressAsyncHandler(async (req, res) => {
 
   const { productId, rating, comment } = req.body;
-  
+
 
   const review = {
     user: req.user.id,
@@ -160,9 +144,7 @@ const createReview = expressAsyncHandler(async (req, res) => {
 
 })
 
-
 //Get Reviews - api/reviews?id={productId}
-
 const getReview = expressAsyncHandler(async (req, res) => {
   const product = await productDB.findById(req.query.id)
   res.status(200).json({
@@ -205,8 +187,42 @@ const deleteReview = expressAsyncHandler(async (req, res) => {
 
 })
 
+////////////////////////////////////////////////////////////////////////////
+// ADMIN
 
+// GET admin products - api/admin/products
+const getAdminProducts = expressAsyncHandler(async (req, res, next) => {
 
+  const products = await productDB.find()
+
+  res.status(200).json({
+    success: true,
+    products
+  });
+});
+
+// POST create product - /api/admin/product/new
+const newProduct = expressAsyncHandler(async (req, res) => {
+
+  let images = []
+
+  if (req.files.length > 0) {
+    req.files.forEach((file) => {
+      let url = `${process.env.BACKEND_URL}/uploads/product/${file.originalname}`
+      images.push({ image: url })
+    })
+  }
+
+  req.body.images = images
+  req.body.user = req.user.id
+
+  const product = await productDB.create(req.body);
+
+  res.status(201).json({
+    success: true,
+    product: product,
+  });
+});
 
 
 module.exports = {
@@ -217,5 +233,6 @@ module.exports = {
   deleteProduct,
   createReview,
   getReview,
-  deleteReview
+  deleteReview,
+  getAdminProducts
 };

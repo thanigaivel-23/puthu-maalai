@@ -6,8 +6,23 @@ const {
   newProduct,
   getSingleProduct,
   updateProduct,
-  deleteProduct, createReview, getReview, deleteReview
+  deleteProduct, createReview, getReview, deleteReview, getAdminProducts
 } = require("../controllers/productsControllers");
+
+const path = require('path')
+const multer = require('multer')
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, path.join(__dirname, '..', 'uploads/product'))
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
+    }
+  })
+
+})
 
 router.get("/products", getProducts);
 router.get("/product/:id", getSingleProduct);
@@ -21,6 +36,7 @@ router.delete('/review', deleteReview)
 
 
 //Admin 
-router.post("/admin/products/new", isAuthenticateUser, authorisedRole('admin'), newProduct);
+router.post("/admin/product/new", isAuthenticateUser, authorisedRole('admin'), upload.array('images'), newProduct);
+router.get("/admin/products", isAuthenticateUser, authorisedRole('admin'), getAdminProducts);
 
 module.exports = router;

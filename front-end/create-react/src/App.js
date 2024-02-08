@@ -6,8 +6,6 @@ import { HelmetProvider } from "react-helmet-async"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-
 import Header from "./components/layouts/header/Header";
 import RoseBar from "./components/layouts/footer/RoseBar";
 import Bottom from "./components/layouts/footer/Bottom";
@@ -48,6 +46,8 @@ import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from "@stripe/stripe-js";
 import OrderDetail from "./components/order-page/OrderDetail";
 import Dashboard from "./components/admin/Dashboard";
+import ProductsList from "./components/admin/ProductsList";
+import CreateProduct from "./components/admin/CreateProduct";
 
 
 
@@ -103,9 +103,12 @@ function App() {
             <Route path="/orders" element={<ProtectedRoute> <OrderPage /> </ProtectedRoute>} />
             <Route path="/order/:id/:product" element={<ProtectedRoute> <OrderDetail /> </ProtectedRoute>} />
 
-            
+
             {/* admin routes */}
-            <Route path="/admin/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
+            <Route path="/admin/dashboard" element={<ProtectedRoute isAdmin> <Dashboard /> </ProtectedRoute>} />
+            <Route path="/admin/products" element={<ProtectedRoute isAdmin> <ProductsList /> </ProtectedRoute>} />
+            <Route path="/admin/product/:id" element={<ProtectedRoute isAdmin> <ProductsList /> </ProtectedRoute>} />
+            <Route path="/admin/product/create" element={<ProtectedRoute isAdmin> <CreateProduct /> </ProtectedRoute>} />
 
 
           </Routes>
