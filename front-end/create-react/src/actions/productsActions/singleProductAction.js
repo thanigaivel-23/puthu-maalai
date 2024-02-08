@@ -19,13 +19,9 @@ export const createNewProduct = productData => async (dispatch) => {
 
     try {
         dispatch(createProductRequest())
-        const config = {
-            headers: {
-                'Content-type': 'multipart/form-data'
-            }
-        }
+      
 
-        const { data } = await axios.post('/api/admin/product/new', productData, config)
+        const { data } = await axios.post('/api/admin/product/new', productData)
         dispatch(createProductSuccess(data))
     }
     catch (error) {

@@ -56,7 +56,7 @@ const CreateProduct = () => {
         formData.append('color', color)
         formData.append('category', category)
         images.forEach(image => {
-            formData.append('image', image)
+            formData.append('images', image)
         })
 
         dispatch(createNewProduct(formData))
