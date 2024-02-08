@@ -62,6 +62,7 @@ const CreateProduct = () => {
         dispatch(createNewProduct(formData))
 
     }
+    console.log(123456);
 
     useEffect(() => {
         if (isProductCreated) {
