@@ -7,3 +7,5 @@ let ratings = reviews.reduce((acc, review) => {
 ratings = isNaN(ratings) ? 0 : ratings;
 
 console.log(ratings);
+
+// # DB_LOCAL_URI = mongodb://127.0.0.1:27017/kumazon

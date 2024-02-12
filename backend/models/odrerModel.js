@@ -19,12 +19,17 @@ const orderSchema = mongoose.Schema({
             required: true
         },
         phoneNo: {
+            trim: true,
             type: String,
-            required: true
+            required: true,
+            min: [9, 'Must be at least 10 numbers'],
+            max: [10, 'Must be at least 10 numbers'],
+
         },
         postalCode: {
             type: String,
-            required: true
+            required: true,
+            trim: true,
         }
     },
     user: {
