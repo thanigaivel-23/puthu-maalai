@@ -7,7 +7,10 @@ const orderSlice = createSlice({
     userOrdersList: [],
     adminOrdersList: [],
     loading: false,
-    isReviewSubmitted: false
+    isReviewSubmitted: false,
+    isOrderDeleted: false,
+    isOrderUpdated: false,
+
   },
   reducers: {
     createOrderRequest(state, action) {
@@ -127,6 +130,59 @@ const orderSlice = createSlice({
       }
     },
 
+    deleteOrdersRequest(state, action) {
+      return {
+        ...state,
+        loading: true
+      }
+    },
+    deleteOrdersSuccess(state, action) {
+      return {
+        ...state,
+        loading: false,
+        isOrderDeleted: true
+      }
+    },
+    deleteOrdersFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      }
+    },
+    clearOrderDeleted(state, action) {
+      return {
+        ...state,
+        isOrderDeleted: false
+      }
+    },
+
+    updateOrdersRequest(state, action) {
+      return {
+        ...state,
+        loading: true
+      }
+    },
+    updateOrdersSuccess(state, action) {
+      return {
+        ...state,
+        loading: false,
+        isOrderUpdated: true
+      }
+    },
+    updateOrdersFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      }
+    },
+    clearOrderUpdated(state, action) {
+      return {
+        ...state,
+        isOrderUpdated: false
+      }
+    },
 
 
   }
@@ -148,7 +204,18 @@ export const {
   createReviewFail,
   createReviewRequest,
   createReviewSuccess,
-  clearReviewError
+  clearReviewError,
+  deleteOrdersFail,
+  deleteOrdersRequest,
+  deleteOrdersSuccess,
+  updateOrdersFail,
+  updateOrdersRequest,
+  updateOrdersSuccess,
+  clearOrderDeleted,
+  clearOrderUpdated,
+  adminOrdersFail,
+  adminOrdersRequest,
+  adminOrdersSuccess
 } = actions
 
 export default reducer;

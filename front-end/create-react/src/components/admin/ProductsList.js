@@ -19,7 +19,7 @@ const ProductsList = () => {
 
     const dispatch = useDispatch()
 
-    const { products = [], loading = true, error } = useSelector(state => state.productsState)
+    const { products = [], loading = true, error } = useSelector(state => state.orderState)
     const { isProductDeleted, error: productError } = useSelector(state => state.singleProductState)
 
 
@@ -108,7 +108,7 @@ const ProductsList = () => {
                                 <th className='border border-[#ddd] text-center p-3' >Name</th>
                                 <th className='border border-[#ddd] text-center p-3' >Price</th>
                                 <th className='border border-[#ddd] text-center p-3' >Stock</th>
-                                <th className='border border-[#ddd] text-center p-3' >action</th>
+                                <th className='border border-[#ddd] text-center p-3' >Action</th>
                             </tr>
                         </thead>
                         <tbody>
