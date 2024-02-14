@@ -9,10 +9,20 @@ import { clearError, clearProductCreated } from '../../slices/singleProductSlice
 const CreateProduct = () => {
 
     const [name, setName] = useState('')
+    const [nameError, setNameError] = useState('')
+
     const [price, setPrice] = useState('')
+    const [priceError, setPriceError] = useState('')
+
     const [discount, setDiscount] = useState('')
+    const [discountError, setDiscountError] = useState('')
+
     const [description, setDescription] = useState('')
+    const [descriptionError, setDescriptionError] = useState('')
+
     const [stock, setStock] = useState('')
+    const [stockError, setStockError] = useState('')
+
     const [sellerName, setSellerName] = useState('')
     const [size, setSize] = useState('')
     const [color, setColor] = useState('')
