@@ -7,8 +7,6 @@ import CheckoutSteps from './CheckoutSteps';
 
 const Address = () => {
 
-    console.log(23);
-
     const { shippingInfo = {} } = useSelector(state => state.cartState)
     const dispatch = useDispatch()
     const navigate = useNavigate()
