@@ -39,7 +39,6 @@ const ImgSilder = ({ singleProduct }) => {
 
   const [img, setImg] = useState(singleProduct.images && singleProduct.images[0].image)
 
-  console.log(singleProduct.images);
 
   return (
     <>
@@ -48,7 +47,7 @@ const ImgSilder = ({ singleProduct }) => {
       </div>
       
 
-      <div className="mt-2 ">
+      <div className="hidden lg:block mt-2 ">
         <Slider {...settings}>
           {singleProduct.images ? singleProduct.images.length > 1 && singleProduct.images.map(image =>
             <div className="lg:mr-40" key={image._id}>

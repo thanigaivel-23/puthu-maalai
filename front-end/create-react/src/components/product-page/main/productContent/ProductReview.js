@@ -2,7 +2,8 @@ import React from "react";
 import { Rate } from 'antd';
 
 const ProductReview = ({ reviews }) => {
-  
+
+  console.log(reviews);
   return (
     <>
       {
@@ -22,7 +23,7 @@ const ProductReview = ({ reviews }) => {
                     <h2 className="font-bold text-sm md:text-lg">{review.user.name}</h2>
 
                     <div className="flex items-center gap-x-1 text-rose-500 ">
-                      <Rate disabled={true} value={review.rating} className="text-rose-500"/>
+                      <Rate disabled={true} value={review.rating} className="text-rose-500" />
                       <p className="text-black ml-1 text-xs md:text-sm font-bold">
                         2 mins ago
                       </p>
@@ -34,7 +35,7 @@ const ProductReview = ({ reviews }) => {
               </div>
 
               <div className="text-sm md:text-base mt-3">
-                {review.comment}
+                {review.comment !== 'false' ? review.comment : ''}
               </div>
             </div>
           </div>

@@ -65,7 +65,7 @@ const CartPage = () => {
       {items.length === 0 ?
         <Empty description={false} className="m-10 mb-16 md:text-lg font-bold" >
 
-          <div className="mt-24">Your Cart Is Empty,
+          <div className="mt-24 text-black">Your Cart Is Empty,
             <Link to={'/shop'} className=" text-rose-500 ml-1">Shop Now</Link>
           </div>
         </Empty>
