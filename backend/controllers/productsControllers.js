@@ -53,41 +53,8 @@ const getSingleProduct = expressAsyncHandler(async (req, res, next) => {
 
 
 
-/// PUT Update product - /api/products/:id
-const updateProduct = expressAsyncHandler(async (req, res) => {
-  const product = await productDB.findById(req.params.id);
 
-  if (!product) {
-    return next(new ErrorHandler("product not found", 404));
-  }
 
-  const updatedproduct = await productDB.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true, runValidators: true }
-  );
-
-  res.status(201).json({
-    success: true,
-    product: updatedproduct,
-  });
-});
-
-/// DELETE Delete product - /api/products/:id
-const deleteProduct = expressAsyncHandler(async (req, res) => {
-  const product = await productDB.findById(req.params.id);
-
-  if (!product) {
-    return next(new ErrorHandler("product not found", 404));
-  }
-
-  await productDB.findByIdAndDelete(req.params.id);
-
-  res.status(201).json({
-    success: true,
-    message: "product deleted",
-  });
-});
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -204,6 +171,7 @@ const getAdminProducts = expressAsyncHandler(async (req, res, next) => {
 // POST create product - /api/admin/product/new
 const newProduct = expressAsyncHandler(async (req, res) => {
 
+  //uploading images
   let images = []
 
   if (req.files.length > 0) {
@@ -224,6 +192,58 @@ const newProduct = expressAsyncHandler(async (req, res) => {
   });
 });
 
+/// PUT Update product - /api/products/:id
+const updateProduct = expressAsyncHandler(async (req, res) => {
+  const product = await productDB.findById(req.params.id);
+
+  //uploading images
+  let images = []
+
+  //if images not cleared keep existing images 
+  if (req.body.imagesCleared === 'false') {
+    images = product.images
+  }
+
+  if (req.files.length > 0) {
+    req.files.forEach((file) => {
+      let url = `${process.env.BACKEND_URL}/uploads/product/${file.originalname}`
+      images.push({ image: url })
+    })
+  }
+
+  req.body.images = images
+
+  if (!product) {
+    return next(new ErrorHandler("product not found", 404));
+  }
+
+  const updatedproduct = await productDB.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true, runValidators: true }
+  );
+
+  res.status(201).json({
+    success: true,
+    product: updatedproduct,
+  });
+});
+
+/// DELETE Delete product - /api/products/:id
+const deleteProduct = expressAsyncHandler(async (req, res) => {
+  const product = await productDB.findById(req.params.id);
+
+  if (!product) {
+    return next(new ErrorHandler("product not found", 404));
+  }
+
+  await productDB.findByIdAndDelete(req.params.id);
+
+  res.status(201).json({
+    success: true,
+    message: "product deleted",
+  });
+});
 
 module.exports = {
   getProducts,

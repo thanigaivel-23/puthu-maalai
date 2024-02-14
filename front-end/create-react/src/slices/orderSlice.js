@@ -5,6 +5,7 @@ const orderSlice = createSlice({
   initialState: {
     orderDetail: {},
     userOrdersList: [],
+    adminOrdersList: [],
     loading: false,
     isReviewSubmitted: false
   },
@@ -102,7 +103,30 @@ const orderSlice = createSlice({
         ...state,
         error: null
       }
-    }
+    },
+
+    //admin
+    adminOrdersRequest(state, action) {
+      return {
+        ...state,
+        loading: true
+      }
+    },
+    adminOrdersSuccess(state, action) {
+      return {
+        ...state,
+        loading: false,
+        adminOrdersList: action.payload.orders
+      }
+    },
+    adminOrdersFail(state, action) {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      }
+    },
+
 
 
   }

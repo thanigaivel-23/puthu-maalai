@@ -8,6 +8,7 @@
         "colors" : ["black", "white", "red"],
         "size" : ["s", "m", "l"],
         "ratings": 4.2,
+        
         "brand": "Urbano Fashion",
         "type": "Dress",
         "fabric": "Cotton",

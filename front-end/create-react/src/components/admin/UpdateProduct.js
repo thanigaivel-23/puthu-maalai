@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { BsArrowLeft } from 'react-icons/bs'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { createNewProduct } from '../../actions/productsActions/singleProductAction'
+import { getSingleProduct, updateProduct } from '../../actions/productsActions/singleProductAction'
 import { toast } from 'react-toastify'
-import { clearError, clearProductCreated } from '../../slices/singleProductSlice'
+import { clearError, clearProductUpdated } from '../../slices/singleProductSlice'
+import { FaRegTrashCan } from "react-icons/fa6"
 
-const CreateProduct = () => {
+const UpdateProduct = () => {
+
+    const { id: productId } = useParams()
 
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
@@ -24,6 +27,7 @@ const CreateProduct = () => {
     const [sizeAndFit, setSizeAndFit] = useState('')
     const [images, setImages] = useState([])
     const [imagePerview, setImagePerview] = useState([])
+    const [imagesCleared, setImagesCleared] = useState(false)
 
     const imageHandler = (e) => {
         const files = Array.from(e.target.files)
@@ -42,13 +46,14 @@ const CreateProduct = () => {
         })
     }
 
-    const { loading, isProductCreated, error } = useSelector(state => state.singleProductState)
+    const { loading, isProductUpdated, error, singleProduct } = useSelector(state => state.singleProductState)
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
 
     const submitHandler = (e) => {
+
         e.preventDefault();
         const formData = new FormData()
         formData.append('name', name)
@@ -65,21 +70,30 @@ const CreateProduct = () => {
         formData.append('fabric', fabric)
         formData.append('style', style)
         formData.append('sizeAndFit', sizeAndFit)
+        console.log(images);
+        console.log(imagePerview);
         images.forEach(image => {
             formData.append('images', image)
         })
+        formData.append('imagesCleared', imagesCleared)
 
-        dispatch(createNewProduct(formData))
+        dispatch(updateProduct(formData, productId))
 
     }
 
+    const clearImagesHandler = () => {
+        setImagePerview([])
+        setImages([])
+        setImagesCleared(true)
+    }
+
     useEffect(() => {
-        if (isProductCreated) {
+        if (isProductUpdated) {
             toast('Product Created Successfully', {
                 position: toast.POSITION.TOP_CENTER,
                 type: 'success',
                 onOpen: () => {
-                    dispatch(clearProductCreated())
+                    dispatch(clearProductUpdated())
                 }
             })
             navigate('/admin/products')
@@ -97,7 +111,36 @@ const CreateProduct = () => {
             return;
         }
 
-    }, [isProductCreated, error, dispatch, navigate])
+        dispatch(getSingleProduct(productId))
+
+
+    }, [isProductUpdated, error, dispatch, navigate, productId])
+
+    useEffect(() => {
+        if (singleProduct._id) {
+            setName(singleProduct.name)
+            setPrice(singleProduct.price)
+            setDiscount(singleProduct.discount)
+            setDescription(singleProduct.description)
+            setStock(singleProduct.stock)
+            setSellerName(singleProduct.seller)
+            setSize(singleProduct.size)
+            setColor(singleProduct.colors)
+            setCategory(singleProduct.category)
+            setBrand(singleProduct.brand)
+            setStyle(singleProduct.style)
+            setSizeAndFit(singleProduct.sizeAndFit)
+            setFabric(singleProduct.fabric)
+            setType(singleProduct.type)
+
+            let images = []
+            singleProduct.images.forEach((image) => {
+                images.push(image.image)
+            })
+            setImagePerview(images)
+
+        }
+    }, [singleProduct])
 
     return (
         <>
@@ -111,7 +154,7 @@ const CreateProduct = () => {
             {/*create product*/}
             <form onSubmit={submitHandler} className='md:border-2 md:w-[70%] lg:w-[50%] md:mx-auto md:my-7'>
 
-                <p className='px-3 py-3 text-sm md:text-xl font-bold text-gray-700 bg-gray-100 md:bg-white'>Create Product</p>
+                <p className='px-3 py-3 text-sm md:text-xl font-bold text-gray-700 bg-gray-100 md:bg-white'>Update Product</p>
 
                 {/* name */}
                 <p className='mx-3 py-3 text-sm md:text-base font-bold text-gray-700 '>Name of the Product</p>
@@ -155,7 +198,8 @@ const CreateProduct = () => {
                 {/* images */}
                 <p className='mx-3 py-3 text-sm md:text-base font-bold text-gray-700 '>Images</p>
 
-                <div className='flex'>
+                <div className='flex items-center mx-3'>
+                    {imagePerview.length > 0 && <span onClick={clearImagesHandler} className='flex items-center cursor-pointer gap-x-2 text-rose-500'> <FaRegTrashCan className='text-xl' /> Clear All </span>}
                     {imagePerview.map((image, index) => (
                         <img className='m-2  ' key={index} src={image} alt='preview images' height={'52'} width={'55'} />
                     ))}
@@ -168,12 +212,12 @@ const CreateProduct = () => {
                         Choose Images
                     </label>
 
-                    <input required onChange={imageHandler} name='productPic' id='product_img' type="file" className='absolute' />
+                    <input onChange={imageHandler} name='productPic' id='product_img' type="file" className='absolute' />
                 </div>
 
                 {/* SAVE */}
                 <button className=' flex justify-center my-4 w-full' disabled={loading} >
-                    <p className='w-10/12 text-white bg-rose-500 rounded-sm py-3'>Create</p>
+                    <p className='w-10/12 text-white bg-rose-500 disabled:bg-rose-400 rounded-sm py-3'>Update Product</p>
                 </button>
 
             </form>
@@ -181,4 +225,4 @@ const CreateProduct = () => {
     )
 }
 
-export default CreateProduct
+export default UpdateProduct

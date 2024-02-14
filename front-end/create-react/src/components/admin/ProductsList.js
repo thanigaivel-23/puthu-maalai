@@ -13,7 +13,10 @@ import { FaPlus } from "react-icons/fa6";
 import { deleteProduct } from '../../actions/productsActions/singleProductAction'
 import { clearProductDeleted } from '../../slices/singleProductSlice'
 
+import { Popconfirm } from 'antd';
+
 const ProductsList = () => {
+
     const dispatch = useDispatch()
 
     const { products = [], loading = true, error } = useSelector(state => state.productsState)
@@ -87,6 +90,8 @@ const ProductsList = () => {
                 <Fragment>
                     <AdminNavbar />
 
+
+
                     <div className='flex flex-wrap lg:w-[70%] mt-5 mx-5 lg:mx-auto items-center justify-between'>
                         <p><b>Total Products :</b> {items && items.length}</p>
                         <Link to={'/admin/product/create'} className='bg-rose-500 flex gap-x-3 px-3 py-2 rounded-sm text-white items-center'>
@@ -100,7 +105,6 @@ const ProductsList = () => {
 
                         <thead>
                             <tr className='text-sm md:text-base w-[100%] lg:w-[70%]'>
-                                <th className='border border-[#ddd] text-center p-3 hidden lg:block'>ID</th>
                                 <th className='border border-[#ddd] text-center p-3' >Name</th>
                                 <th className='border border-[#ddd] text-center p-3' >Price</th>
                                 <th className='border border-[#ddd] text-center p-3' >Stock</th>
@@ -110,13 +114,23 @@ const ProductsList = () => {
                         <tbody>
                             {items.length > 0 && items.map((product, index) => (
                                 <tr className='odd:bg-gray-100 text-sm md:text-base w-[100%] lg:w-[70%]' key={index}>
-                                    <td className='border-x border-[#ddd]  p-2 xs:p-3 hidden lg:block' >{product._id}</td>
                                     <td className='border-x border-[#ddd]  p-2 xs:p-3' ><Link to={`/product/${product._id}`} >{product.name}</Link></td>
                                     <td className='border-x border-[#ddd] text-center p-2 xs:p-3' >&#8377; {product.price}</td>
                                     <td className='border-x border-[#ddd] text-center p-2 xs:p-3' >{product.stock}</td>
-                                    <td className='border-x  border-[#ddd] text-center  p-2 xs:p-3 flex  gap-x-2' >
+                                    <td className='border-x  border-[#ddd] text-center  p-2 xs:p-3 flex justify-center gap-x-2' >
                                         <Link to={`/admin/product/${product._id}`} className='bg-blue-500 p-2 xs:p-3 rounded-md '><MdOutlineEdit className='text-white text-xl' /></Link>
-                                        <button onClick={(e) => deleteHandler(e, product._id)} className='bg-red-500 p-2 xs:p-3  rounded-md'><RiDeleteBin6Line className='text-white text-xl' /></button>
+
+                                        <Popconfirm
+                                            title="Are you sure?"
+                                            placement='top'
+                                            icon={false}
+                                            okText="Yes"
+                                            cancelText="No"
+                                            onConfirm={(e) => deleteHandler(e, product._id)}
+                                        >
+                                            <button /* onClick={} */ className='bg-red-500 p-2 xs:p-3  rounded-md'><RiDeleteBin6Line className='text-white text-xl' /></button>
+
+                                        </Popconfirm>
                                     </td>
                                 </tr>)
                             )}

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "please enter product name"],
+    required: [true, "xxxx please enter product name"],
     trim: true,
     maxLength: [100, "product name cannot exceed 100 characters"],
   },
@@ -55,9 +55,10 @@ const productSchema = new mongoose.Schema({
     {
       image: {
         type: String,
-        required: true,
+        required: [true, "please add at least one images"]
       },
     },
+    
   ],
 
   category: {

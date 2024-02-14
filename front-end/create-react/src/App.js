@@ -48,6 +48,10 @@ import OrderDetail from "./components/order-page/OrderDetail";
 import Dashboard from "./components/admin/Dashboard";
 import ProductsList from "./components/admin/ProductsList";
 import CreateProduct from "./components/admin/CreateProduct";
+import UpdateProduct from "./components/admin/UpdateProduct";
+import OrdersList from "./components/admin/OrdersList";
+import UsersList from "./components/admin/UsersList";
+import ReviewsList from "./components/admin/ReviewsList";
 
 
 
@@ -107,8 +111,11 @@ function App() {
             {/* admin routes */}
             <Route path="/admin/dashboard" element={<ProtectedRoute isAdmin> <Dashboard /> </ProtectedRoute>} />
             <Route path="/admin/products" element={<ProtectedRoute isAdmin> <ProductsList /> </ProtectedRoute>} />
-            <Route path="/admin/product/:id" element={<ProtectedRoute isAdmin> <ProductsList /> </ProtectedRoute>} />
             <Route path="/admin/product/create" element={<ProtectedRoute isAdmin> <CreateProduct /> </ProtectedRoute>} />
+            <Route path="/admin/product/:id" element={<ProtectedRoute isAdmin> <UpdateProduct /> </ProtectedRoute>} />
+            <Route path="/admin/orders" element={<ProtectedRoute isAdmin> <OrdersList /> </ProtectedRoute>} />
+            <Route path="/admin/users" element={<ProtectedRoute isAdmin> <UsersList /> </ProtectedRoute>} />
+            <Route path="/admin/reviews" element={<ProtectedRoute isAdmin> <ReviewsList /> </ProtectedRoute>} />
 
 
           </Routes>

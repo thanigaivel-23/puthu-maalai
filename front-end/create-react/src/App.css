@@ -114,3 +114,15 @@
   margin-left: 0 !important
 
 }
+
+/* delete product */
+.ant-popconfirm-title{
+  font-size: larger;
+}
+
+.css-dev-only-do-not-override-2i2tap{
+  background-color: #f43f5e !important;
+  color: white;
+}
+
+

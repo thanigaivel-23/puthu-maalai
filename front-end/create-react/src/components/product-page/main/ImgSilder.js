@@ -39,25 +39,32 @@ const ImgSilder = ({ singleProduct }) => {
 
   const [img, setImg] = useState(singleProduct.images && singleProduct.images[0].image)
 
+  console.log(singleProduct.images);
 
   return (
     <>
       <div className=" hidden  lg:flex justify-center">
         <img className="" src={img} alt="" />
       </div>
-      {/* <div>
-        <AiOutlineHeart className="text-rose-500 lg:text-white text-2xl lg:text-3xl top-6 right-12 xs:right-24 sm:right-44 md:right-56  lg:right-6 z-10  absolute" />
-      </div> */}
+      
 
       <div className="mt-2 ">
+        <Slider {...settings}>
+          {singleProduct.images ? singleProduct.images.length > 1 && singleProduct.images.map(image =>
+            <div className="lg:mr-40" key={image._id}>
+              <img className="w-[90%] xs:w-4/5 sm:w-3/5  mx-auto" src={image.image} alt="" onClick={() => setImg(image.image)} />
+            </div>
+          ) : ''}
+        </Slider>
+      </div>
+
+      <div className="lg:hidden mt-2 ">
         <Slider {...settings}>
           {singleProduct.images && singleProduct.images.map(image =>
             <div className="lg:mr-40" key={image._id}>
               <img className="w-[90%] xs:w-4/5 sm:w-3/5  mx-auto" src={image.image} alt="" onClick={() => setImg(image.image)} />
             </div>
-          )}
-
-
+          ) }
         </Slider>
       </div>
     </>
