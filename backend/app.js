@@ -7,6 +7,7 @@ const products = require("./routes/products");
 const auth = require("./routes/auth");
 const order = require("./routes/order");
 const payment = require("./routes/payment");
+const category = require("./routes/category")
 
 dotenv.config({ path: path.join(__dirname, "config", ".env") });
 
@@ -20,6 +21,7 @@ app.use("/api", products);
 app.use("/api", auth);
 app.use("/api", order);
 app.use("/api", payment);
+app.use("/api", category);
 
 if (process.env.NODE_ENV == "production") {
     app.use(express.static(path.join(__dirname, '../front-end/create-react/build')))
