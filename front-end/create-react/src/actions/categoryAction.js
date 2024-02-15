@@ -4,9 +4,11 @@ import axios from 'axios';
 const createCategory = (req) => async (dispatch) => {
     try {
         const { data } = await axios.post('/api/admin/createCategory', req)
-        dispatch(setCategoryCreated(true))
+        dispatch(setCategoryCreated(data.message))
     } catch (error) {
-        dispatch(setCategoryCreated(false))
+        dispatch(setCategoryCreated(error?.response?.data?.message))
     }
 }
+
+export { createCategory }
 

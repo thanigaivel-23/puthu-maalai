@@ -4,7 +4,8 @@ const orderSchema = mongoose.Schema({
 
     categoryName: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     subCategoryName1: {
         type: String,

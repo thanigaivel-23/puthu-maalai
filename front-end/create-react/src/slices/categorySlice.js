@@ -4,7 +4,7 @@ const categorySlice = createSlice({
     name: "category",
     initialState: {
         allcategories: [],
-        iscategorycreated: false
+        iscategorycreated: ""
     },
     reducers: {
         getAllCategoryStore(state, action) {
@@ -16,13 +16,13 @@ const categorySlice = createSlice({
         setCategoryCreated(state, action) {
             return {
                 ...state,
-                allcategories: action.payload
+                iscategorycreated: action.payload
             }
         }
     }
 })
 
-const { actions, reducer } = orderSlice;
+const { actions, reducer } = categorySlice;
 
 export const { getAllCategoryStore, setCategoryCreated } = actions
 
