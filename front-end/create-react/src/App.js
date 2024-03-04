@@ -55,6 +55,7 @@ import ReviewsList from "./components/admin/ReviewsList";
 import AdminOrderDetail from "./components/admin/AdminOrderDetail";
 import UpdateOrder from "./components/admin/UpdateOrder";
 import Wishlist from "./components/cart-page/Wishlist";
+import CreateCategory from "./components/admin/CreateCategory";
 
 
 
@@ -122,6 +123,7 @@ function App() {
             <Route path="/admin/order/update/:id" element={<ProtectedRoute isAdmin> <UpdateOrder /> </ProtectedRoute>} />
             <Route path="/admin/users" element={<ProtectedRoute isAdmin> <UsersList /> </ProtectedRoute>} />
             <Route path="/admin/reviews" element={<ProtectedRoute isAdmin> <ReviewsList /> </ProtectedRoute>} />
+            <Route path="/admin/order/:id" element={<ProtectedRoute isAdmin> <AdminOrderDetail /> </ProtectedRoute>} />
 
 
           </Routes>
