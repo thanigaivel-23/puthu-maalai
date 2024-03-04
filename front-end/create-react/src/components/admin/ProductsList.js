@@ -19,7 +19,7 @@ const ProductsList = () => {
 
     const dispatch = useDispatch()
 
-    const { products = [], loading = true, error } = useSelector(state => state.orderState)
+    const { products = [], loading = true, error } = useSelector(state => state.productsState)
     const { isProductDeleted, error: productError } = useSelector(state => state.singleProductState)
 
 
@@ -27,8 +27,6 @@ const ProductsList = () => {
     const [filterVal, setFilterVal] = useState('')
 
     const handleFilter = (e) => {
-
-
 
         if (e.target.value === '') {
             setItems(products)

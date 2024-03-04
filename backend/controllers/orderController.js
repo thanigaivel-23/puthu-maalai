@@ -99,11 +99,16 @@ exports.updateOrder = expressAsyncHandler(async (req, res, next) => {
 
 });
 
+
+
 async function updateStock(productId, quantity) {
 
     const product = await productDB.findById(productId);
-    product.stock = product.stock - quantity;
-    product.save({ validateBeforeSave: false })
+
+    if (product) {
+        product.stock = product.stock - quantity;
+        product.save({ validateBeforeSave: false })
+    }
 }
 
 

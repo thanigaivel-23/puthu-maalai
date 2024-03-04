@@ -116,7 +116,7 @@ const OrderDetail = () => {
                                 </div>))}
 
                             {/* isDelivered */}
-                            <div className={`flex items-center justify-start mx-5 px-3 py-4 my-3 gap-x-3 font-bold ${orderStatus === 'Processing' ? 'bg-rose-500 ' : 'bg-[#03a685]'} text-white`}>
+                            <div className={`flex items-center justify-start mx-5 px-3 py-4 my-3 gap-x-3 font-bold ${orderStatus === 'Delivered' ? ' bg-[#03a685]' : 'bg-rose-500'} text-white`}>
                                 <TbTruckDelivery className="w-6 h-6 white" />
                                 {orderStatus}
                             </div>
@@ -127,27 +127,28 @@ const OrderDetail = () => {
                             </div>
 
                             {/* rate product */}
-                            <div className='border-t-8 border-[#f5f5f5] pl-5'>
+                            {orderStatus === `Delivered` &&
+                                <div className='border-t-8 border-[#f5f5f5] pl-5'>
 
-                                <button onClick={() => setIsModalOpen(true)} className=" flex items-center gap-x-4 my-4 "  >
-                                    <p className="text-sm text-rose-500 font-semibold list-disc">
-                                        Rate Product
-                                    </p>
-                                    <div className="flex items-center gap-x-1 ">
-                                        <Rate className="text-rose-500 w-8 h-8 flex text-2xl" disabled={true} value={rating ? rating : updatingReview.length > 0 && updatingReview[0].rating} />
-                                    </div>
-                                </button>
+                                    <button onClick={() => setIsModalOpen(true)} className=" flex items-center gap-x-4 my-4 "  >
+                                        <p className="text-sm text-rose-500 font-semibold list-disc">
+                                            Rate Product
+                                        </p>
+                                        <div className="flex items-center gap-x-1 ">
+                                            <Rate className="text-rose-500 w-8 h-8 flex text-2xl" disabled={true} value={rating ? rating : updatingReview.length > 0 && updatingReview[0].rating} />
+                                        </div>
+                                    </button>
 
-                                <Modal title="Rate Product" open={isModalOpen} footer={false} onCancel={() => setIsModalOpen(false)} >
-                                    <Rate className="text-rose-500 w-8 h-8 flex" value={rating ? rating : updatingReview.length > 0 && updatingReview[0].rating}
-                                        onChange={(e) => {
-                                            e ? setRating(e) : setRating(1)
-                                            reviewHandler()
-                                        }} />
-                                    <textarea onChange={(e) => setComment(e.target.value)} rows={'8'} className="w-full text-black outline-none border rounded-md p-2 " placeholder="Please write product review here" defaultValue={updatingReview.length > 0 ? updatingReview[0].comment : ''}></textarea>
-                                    <button disabled={loading} onClick={submitHandler} className='float-right text-white bg-rose-500 rounded-md py-2 px-3 mt-3'>submit</button>
-                                </Modal>
-                            </div>
+                                    <Modal title="Rate Product" open={isModalOpen} footer={false} onCancel={() => setIsModalOpen(false)} >
+                                        <Rate className="text-rose-500 w-8 h-8 flex" value={rating ? rating : updatingReview.length > 0 && updatingReview[0].rating}
+                                            onChange={(e) => {
+                                                e ? setRating(e) : setRating(1)
+                                                reviewHandler()
+                                            }} />
+                                        <textarea onChange={(e) => setComment(e.target.value)} rows={'8'} className="w-full text-black outline-none border rounded-md p-2 " placeholder="Please write product review here" defaultValue={updatingReview.length > 0 ? updatingReview[0].comment : ''}></textarea>
+                                        <button disabled={loading} onClick={submitHandler} className='float-right text-white bg-rose-500 rounded-md py-2 px-3 mt-3'>submit</button>
+                                    </Modal>
+                                </div>}
 
                             {/* Delivery address */}
                             <div className='border-t-8 py-3 border-[#f5f5f5] pl-5'>

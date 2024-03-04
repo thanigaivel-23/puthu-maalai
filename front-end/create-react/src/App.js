@@ -53,6 +53,8 @@ import OrdersList from "./components/admin/OrdersList";
 import UsersList from "./components/admin/UsersList";
 import ReviewsList from "./components/admin/ReviewsList";
 import AdminOrderDetail from "./components/admin/AdminOrderDetail";
+import UpdateOrder from "./components/admin/UpdateOrder";
+import Wishlist from "./components/cart-page/Wishlist";
 
 
 
@@ -87,6 +89,7 @@ function App() {
             <Route path="/product/:id" element={<ProductPage />} />
             <Route path="/search/:keyword" element={<SearchPage />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/shop" element={<ShopPage />} />
             <Route path="/category" element={<CategoryPage />} />
             <Route path="/women" element={<WomenPage />} />
@@ -115,9 +118,10 @@ function App() {
             <Route path="/admin/product/create" element={<ProtectedRoute isAdmin> <CreateProduct /> </ProtectedRoute>} />
             <Route path="/admin/product/:id" element={<ProtectedRoute isAdmin> <UpdateProduct /> </ProtectedRoute>} />
             <Route path="/admin/orders" element={<ProtectedRoute isAdmin> <OrdersList /> </ProtectedRoute>} />
+            <Route path="/admin/order/:id" element={<ProtectedRoute isAdmin> <AdminOrderDetail /> </ProtectedRoute>} />
+            <Route path="/admin/order/update/:id" element={<ProtectedRoute isAdmin> <UpdateOrder /> </ProtectedRoute>} />
             <Route path="/admin/users" element={<ProtectedRoute isAdmin> <UsersList /> </ProtectedRoute>} />
             <Route path="/admin/reviews" element={<ProtectedRoute isAdmin> <ReviewsList /> </ProtectedRoute>} />
-            <Route path="/admin/order/:id" element={<ProtectedRoute isAdmin> <AdminOrderDetail /> </ProtectedRoute>} />
 
 
           </Routes>

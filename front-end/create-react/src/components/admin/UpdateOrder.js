@@ -1,38 +1,72 @@
-import React, { Fragment, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
-import { orderDetail as orderDetailAction } from '../../actions/orderActions'
-import Loader from '../layouts/Loader'
+import React, { Fragment, useEffect, useState } from 'react'
 import { BsArrowLeft } from 'react-icons/bs'
-import { toast } from "react-toastify";
-import { clearReviewError } from "../../slices/orderSlice";
-import { getSingleProduct } from '../../actions/productsActions/singleProductAction'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import { updateOrders, orderDetail as orderDetailAction } from '../../actions/orderActions'
+import { clearOrderError, clearOrderUpdated } from '../../slices/orderSlice'
+import Loader from '../layouts/Loader'
 import { TbTruckDelivery } from 'react-icons/tb'
 
-const AdminOrderDetail = () => {
+const UpdateOrder = () => {
 
-    const { orderDetail, loading, error } = useSelector(state => state.orderState)
-    const { shippingInfo = {}, user = {}, orderStatus = "Waiting", orderItems = [], itemsPrice = 0, taxPrice = 0, shippingPrice = 0, totalPrice = 0, paymentInfo = {} } = orderDetail
+
+    const { loading, isOrderUpdated, error, orderDetail } = useSelector(state => state.orderState)
+    const { shippingInfo = {}, user = {}, orderItems = [], itemsPrice = 0, taxPrice = 0, shippingPrice = 0, totalPrice = 0, paymentInfo = {} } = orderDetail
     const isPaid = paymentInfo && paymentInfo.status === 'succeeded' ? true : false
 
+
+
+    const [orderStatus, setOrderStatus] = useState('Processing')
+
+    const { id: orderId } = useParams()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { id, product } = useParams();
+
+
+    const submitHandle = (e) => {
+
+        e.preventDefault();
+        const orderData = {}
+        orderData.orderStatus = orderStatus
+        dispatch(updateOrders(orderId, orderData))
+
+    }
 
     useEffect(() => {
+        if (isOrderUpdated) {
+            toast('Order Updated Successfully', {
+                position: toast.POSITION.TOP_CENTER,
+                type: 'success',
+                onOpen: () => {
+                    dispatch(clearOrderUpdated())
+                }
+            })
+            navigate('/admin/orders')
+            return;
+        }
+
         if (error) {
             toast(error, {
                 position: toast.POSITION.TOP_CENTER,
                 type: 'error',
-                onOpen: () => dispatch(clearReviewError())
+                onOpen: () => {
+                    dispatch(clearOrderError())
+                }
             })
             return;
         }
 
-        dispatch(getSingleProduct(product))
+        dispatch(orderDetailAction(orderId))
 
-        dispatch(orderDetailAction(id))
 
-    }, [id, dispatch, error, product])
+    }, [isOrderUpdated, error, dispatch, navigate, orderId])
+
+    useEffect(() => {
+        if (orderDetail._id) {
+            setOrderStatus(orderDetail.orderStatus)
+        }
+    }, [orderDetail])
 
     return (
         <>
@@ -47,8 +81,34 @@ const AdminOrderDetail = () => {
                     <div className='md:border-2 md:w-[70%] lg:w-[50%] md:mx-auto md:my-7'>
                         {/* order items */}
                         <div className='mt-5 '>
+
+                            <div className=' border-b-8 py-3 border-[#f5f5f5] pl-5'>
+
+                                <p className='font-bold mx-5 mb-3 '>Change Order Status</p>
+
+                                <div className='flex gap-x-5 items-center mx-5 mb-4 '>
+
+
+                                    <select name="" id="" value={orderStatus} onChange={e => setOrderStatus(e.target.value)} className='outline-none border border-gray-300 px-2 py-1'>
+                                        <option value="Processing">Processing</option>
+                                        <option value="Shipped">Shipped</option>
+                                        <option value="Out For Delivery">Out For Delivery</option>
+                                        <option value="Delivered">Delivered</option>
+                                    </select>
+                                    <button onClick={submitHandle} disabled={loading} className='py-2 px-3 bg-rose-500 text-white rounded-md'>Save</button>
+
+                                </div>
+
+                                {/* isDelivered */}
+                                <div className={`flex items-center justify-start mx-5 px-3 py-4 my-3 gap-x-3 font-bold ${orderStatus === 'Delivered' ? ' bg-[#03a685]' : 'bg-rose-500'} text-white`}>
+                                    <TbTruckDelivery className="w-6 h-6 white" />
+                                    {orderStatus}
+                                </div>
+
+                            </div>
+
                             {/* heading */}
-                            <div className='ml-5 mb-3'>
+                            <div className='ml-5  my-3'>
                                 <p className='font-bold'>Order item</p>
                                 <p className='text-gray-400 text-sm'>order ID {orderDetail._id} </p>
                             </div>
@@ -80,11 +140,7 @@ const AdminOrderDetail = () => {
                                     </div>
                                 </div>))}
 
-                            {/* isDelivered */}
-                            <div className={`flex items-center justify-start mx-5 px-3 py-4 my-3 gap-x-3 font-bold ${orderStatus === 'Processing' ? 'bg-rose-500 ' : 'bg-[#03a685]'} text-white`}>
-                                <TbTruckDelivery className="w-6 h-6 white" />
-                                {orderStatus}
-                            </div>
+
 
                             {/* is paid */}
                             <div className={`flex items-center justify-start mx-5 px-3 py-4 my-3 gap-x-3 font-bold ${isPaid ? 'bg-[#03a685] ' : 'bg-rose-500'} text-white`}>
@@ -132,8 +188,9 @@ const AdminOrderDetail = () => {
                 </Fragment>
             }
 
+
         </>
     )
 }
 
-export default AdminOrderDetail
+export default UpdateOrder

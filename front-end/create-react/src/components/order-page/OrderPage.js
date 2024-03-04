@@ -18,11 +18,11 @@ const OrderPage = () => {
   const dispatch = useDispatch()
 
 
- 
+
 
   useEffect(() => {
 
-    
+
 
     dispatch(userOrders)
 
@@ -87,15 +87,17 @@ const OrderPage = () => {
               <div>
                 <TbTruckDelivery className="w-8 h-8" />
               </div>
-              {item.orderStatus === "Processing" ?
-                <p className="font-bold text-sm md:text-lg">
-                  Processing
-                </p>
-                :
+              {item.orderStatus === "Delivered" ?
+
                 <p className=" text-sm md:text-lg">
                   <b>Delivered, </b>
                   On Wed, 25 Nov
                 </p>
+                :
+                <p className="font-bold text-sm md:text-lg">
+                  {item.orderStatus}
+                </p>
+
               }
 
             </div>

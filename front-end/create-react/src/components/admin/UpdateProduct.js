@@ -89,7 +89,7 @@ const UpdateProduct = () => {
 
     useEffect(() => {
         if (isProductUpdated) {
-            toast('Product Created Successfully', {
+            toast('Product Updated Successfully', {
                 position: toast.POSITION.TOP_CENTER,
                 type: 'success',
                 onOpen: () => {
@@ -151,7 +151,7 @@ const UpdateProduct = () => {
                 <p className='font-medium'>Back</p>
             </div>
 
-            {/*create product*/}
+            {/*update product*/}
             <form onSubmit={submitHandler} className='md:border-2 md:w-[70%] lg:w-[50%] md:mx-auto md:my-7'>
 
                 <p className='px-3 py-3 text-sm md:text-xl font-bold text-gray-700 bg-gray-100 md:bg-white'>Update Product</p>

@@ -39,6 +39,7 @@ const orderSlice = createSlice({
         error: null
       }
     },
+
     userOrdersRequest(state, action) {
       return {
         ...state,
@@ -59,6 +60,7 @@ const orderSlice = createSlice({
         error: action.payload
       }
     },
+
     orderDetailRequest(state, action) {
       return {
         ...state,

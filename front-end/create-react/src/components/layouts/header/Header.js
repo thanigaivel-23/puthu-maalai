@@ -24,8 +24,8 @@ import { useSelector } from "react-redux";
 const Header = () => {
 
   const location = useLocation();
+  const { items: cartItems  } = useSelector(state => state.cartState)
   const { isAuthenticate } = useSelector(state => state.authState)
-  const { items: cartItems } = useSelector(state => state.cartState)
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -88,7 +88,7 @@ const Header = () => {
                       <p className="font-semibold  rounded-lg bg-rose-500 text-white  px-3 py-1">Login</p>
                     </Link>
                   }
-                  <Link id="wishlist" className="flex items-center  gap-x-2">
+                  <Link to={`/wishlist`} id="wishlist" className="flex items-center  gap-x-2">
                     <FaRegHeart className="text-rose-500 text-xl md:text-2xl" />
                     <p className="hidden lg:block">Wishlist</p>
                   </Link>

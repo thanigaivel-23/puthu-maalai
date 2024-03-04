@@ -5,6 +5,7 @@ const cartSlice = createSlice({
     initialState: {
         loading: false,
         items: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [],
+        wishlistItems: localStorage.getItem('wishlistItems') ? JSON.parse(localStorage.getItem('wishlistItems')) : [],
         shippingInfo: localStorage.getItem('shippingInfo') ? JSON.parse(localStorage.getItem('shippingInfo')) : {},
 
     },
@@ -83,11 +84,104 @@ const cartSlice = createSlice({
             }
         },
 
+        //wishlist
+        addWistlistItemRequest(state, action) {
+
+            return {
+                ...state,
+                loading: true,
+            }
+        },
+        addWistlistItemSuccess(state, action) {
+
+            const item = action.payload
+            const isItemExist = state.wishlistItems.find(i => i.product === item.product)
+
+            if (isItemExist) {
+                return {
+                    ...state,
+                    loading: false,
+
+                }
+            }
+            else {
+                let getWishlistItems = localStorage.getItem('wishlistItems') ? JSON.parse(localStorage.getItem('wishlistItems')) : []
+
+                localStorage.setItem('wishlistItems', JSON.stringify([...getWishlistItems, item]))
+                return {
+                    ...state,
+                    loading: false,
+                    wishlistItems: [...state.wishlistItems, item]
+                }
+
+            }
+        },
+
+        removeItemFromWishlist(state, action) {
+            const filterItems = state.wishlistItems.filter(item => {
+                return item.product !== action.payload
+            })
+            localStorage.setItem('wishlistItems', JSON.stringify(filterItems))
+            return {
+                ...state,
+                wishlistItems: filterItems
+            }
+        },
+
+        moveToCartRequest(state, action) {
+
+            return {
+                ...state,
+                loading: true,
+            }
+        },
+        moveToCartSuccess(state, action) {
+
+            const item = action.payload
+            const isItemExist = state.items.find(i => i.product === item.product)
+
+            const filterItems = state.wishlistItems.filter(i => {
+                return i.product !== item.product
+            })
+            localStorage.setItem('wishlistItems', JSON.stringify(filterItems))
+
+            if (isItemExist) {
+                state = {
+                    ...state,
+                    loading: false,
+                    wishlistItems: filterItems
+                }
+            }
+            else {
+                state = {
+                    items: [...state.items, item],
+                    loading: false,
+                    wishlistItems: filterItems
+                }
+                localStorage.setItem('cartItems', JSON.stringify(state.items))
+            }
+            return state
+
+        },
+
     }
 })
 
 const { actions, reducer } = cartSlice;
 
-export const { addCartItemRequest, addCartItemSuccess, increaseCartItemQty, decreaseCartItemQty, removeItemFromCart, saveShippingInfo, orderCompleted } = actions
+export const {
+    addCartItemRequest,
+    addCartItemSuccess,
+    increaseCartItemQty,
+    decreaseCartItemQty,
+    removeItemFromCart,
+    saveShippingInfo,
+    orderCompleted,
+    addWistlistItemRequest,
+    addWistlistItemSuccess,
+    removeItemFromWishlist,
+    moveToCartRequest,
+    moveToCartSuccess,
+} = actions
 
 export default reducer;
